@@ -9,8 +9,8 @@ import Foundation
 import FirebaseFirestore
 
 struct Goal: Identifiable, Codable {
-    @DocumentID var id: String?
+    @DocumentID var id: String? // Spara,läsa och ändra från Firestore direkt som objekt
     var name: String
-    var streak: Int
-    var lastCompletedDate: Date?
+    var streak: Int // Hur många dagar i rad
+    var lastCompletedDate: Date? // Senaste dagen målet markerades
 }

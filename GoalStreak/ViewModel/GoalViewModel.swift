@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestore
 
-class GoalViewModel: ObservableObject {
+class GoalViewModel: ObservableObject { // automatiskt uppdaterar vyn när goals ändras
     @Published var goals = [Goal]()
     private var db = Firestore.firestore()
 
@@ -23,6 +23,7 @@ class GoalViewModel: ObservableObject {
         }
     }
 
+  // Skapar ett nytt mål med streak 0.
     func addGoal(name: String) {
         let newGoal = Goal(name: name, streak: 0, lastCompletedDate: nil)
         do {
@@ -32,6 +33,7 @@ class GoalViewModel: ObservableObject {
         }
     }
 
+    // Uppdaterar streak
     func completeGoal(_ goal: Goal) {
         guard let id = goal.id else { return }
 
@@ -46,9 +48,9 @@ class GoalViewModel: ObservableObject {
 
         if let last = goal.lastCompletedDate,
            Calendar.current.isDate(last, inSameDayAs: Calendar.current.date(byAdding: .day, value: -1, to: today)!) {
-            updated.streak += 1
+            updated.streak += 1 // Om det var igår → öka streak
         } else {
-            updated.streak = 1
+            updated.streak = 1 // Om det var tidigare → sätt streak till 1
         }
 
         updated.lastCompletedDate = today
@@ -58,5 +60,13 @@ class GoalViewModel: ObservableObject {
         } catch {
             print("Fel vid uppdatering: \(error)")
         }
+    }
+  
+    // Datumformattering
+    func formattedDate(_ date: Date?) -> String {
+        guard let date = date else { return "-" }
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        return formatter.string(from: date)
     }
 }
