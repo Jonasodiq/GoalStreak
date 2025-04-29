@@ -8,8 +8,8 @@
 import SwiftUI
 import FirebaseCore
 
-
-class AppDelegate: NSObject, UIApplicationDelegate {
+// Startar Firebase
+class AppDelegate: NSObject, UIApplicationDelegate { // en traditionell AppDelegate
   func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
     FirebaseApp.configure()
@@ -18,7 +18,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
   }
 }
 
-@main
+@main // Huvudingången till app
 struct GoalStreakApp: App {
   @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     var body: some Scene {
