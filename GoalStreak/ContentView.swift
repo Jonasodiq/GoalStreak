@@ -10,20 +10,34 @@ import Firebase
 
 struct ContentView: View {
   // MARK: - PROPERTIES
-  let db = Firestore.firestore()
+  @State var viewModel = GoalViewModel()
+  @State private var newGoal = ""
   
     var body: some View {
+      NavigationView {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .onAppear {db.collection("test").addDocument(data:["name": "Jonas"])}
-        .padding()
-    }
+          HStack {
+            TextField("Nytt mål...", text: $newGoal)
+              .textFieldStyle(RoundedBorderTextFieldStyle())
+              .padding(.leading)
+            
+            Button(action: {
+              guard !newGoal.isEmpty else { return }
+              viewModel.addGoal(name: newGoal)
+              newGoal = ""
+            }) {
+              Image(systemName: "plus.circle.fill")
+                .foregroundColor(.blue)
+                .font(.title)
+            }
+            .padding()
+          } //: - VStack
+        } //: - HStack End
+      }  //: - Nav
+    } //: - Body
 }
 
+// MARK: - PREVIEW
 #Preview {
     ContentView()
 }
