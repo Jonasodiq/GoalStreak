@@ -6,8 +6,12 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct ContentView: View {
+  // MARK: - PROPERTIES
+  let db = Firestore.firestore()
+  
     var body: some View {
         VStack {
             Image(systemName: "globe")
@@ -15,6 +19,7 @@ struct ContentView: View {
                 .foregroundStyle(.tint)
             Text("Hello, world!")
         }
+        .onAppear {db.collection("test").addDocument(data:["name": "Jonas"])}
         .padding()
     }
 }
