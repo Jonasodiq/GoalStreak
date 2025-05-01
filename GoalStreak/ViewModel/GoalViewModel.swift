@@ -20,6 +20,7 @@ class GoalViewModel: ObservableObject { // automatiskt uppdaterar vyn när goals
       db.collection("goals").addSnapshotListener { snapshot, error in
           guard let documents = snapshot?.documents else { return }
           self.goals = documents.compactMap { try? $0.data(as: Goal.self) }
+          .sorted { $0.streak > $1.streak } // längst streak först
       }
   }
 

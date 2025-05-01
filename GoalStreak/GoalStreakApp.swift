@@ -21,9 +21,19 @@ class AppDelegate: NSObject, UIApplicationDelegate { // en traditionell AppDeleg
 @main // Huvudingången till app
 struct GoalStreakApp: App {
   @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+  @StateObject var authViewModel = AuthViewModel()
+  
     var body: some Scene {
         WindowGroup {
-            ContentView()
+          Group {
+                 if authViewModel.user != nil {
+                     ContentView()
+                 } else {
+                     LoginView()
+                 }
+             }
+             .animation(.easeInOut, value: authViewModel.user)
+             .environmentObject(authViewModel)
         }
     }
 }
