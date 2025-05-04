@@ -6,34 +6,36 @@
 //
 
 import SwiftUI
-import FirebaseCore
+import Firebase
 
-// Startar Firebase
-class AppDelegate: NSObject, UIApplicationDelegate { // en traditionell AppDelegate
-  func application(_ application: UIApplication,
-                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-    FirebaseApp.configure()
-
-    return true
-  }
-}
-
-@main // Huvudingången till app
+@main
 struct GoalStreakApp: App {
-  @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-  @StateObject var authViewModel = AuthViewModel()
-  
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @StateObject var authViewModel = AuthViewModel()
+    @StateObject var goalViewModel = GoalViewModel()
+
     var body: some Scene {
         WindowGroup {
-          Group {
-                 if authViewModel.user != nil {
-                     ContentView()
-                 } else {
-                     LoginView()
-                 }
-             }
-             .animation(.easeInOut, value: authViewModel.user)
-             .environmentObject(authViewModel)
+            Group {
+              if authViewModel.user != nil {
+              HomeView()
+                .onAppear {
+                    goalViewModel.fetchGoals()
+                }
+              } else {
+                LoginView()
+              }
+            }
+            .environmentObject(authViewModel)
+            .environmentObject(goalViewModel)
         }
+    }
+}
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+        FirebaseApp.configure()
+        return true
     }
 }

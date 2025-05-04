@@ -6,40 +6,62 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
 
-struct HomeListView<Destination: View>: View {
-    let title: String
-    let color: Color
-    let icon: String
-    let destination: Destination
-
+struct HomeListView: View {
+  @EnvironmentObject var goalViewModel: GoalViewModel
+  @EnvironmentObject var authViewModel: AuthViewModel
+    
     var body: some View {
-        NavigationLink(destination: destination) {
-            HStack(spacing: 10) {
-                Image(systemName: icon)
-                    .font(.largeTitle)
-                Text(title)
-                    .font(.headline)
+      NavigationStack {
+        List {
+            ForEach(goalViewModel.goals) { goal in
+                HomeCellView(
+                    title: goal.name,
+                    color: Color(hex: goal.colorHex) ?? .blue.opacity(0.2),
+                    icon: goal.emoji,
+                    destination: GoalDetailView(goal: goal)
+                )
+                .listRowBackground(Color.clear)
             }
-            .foregroundColor(.white)
-            .padding()
-            .frame(maxWidth: .infinity, minHeight: 80)
-            .background(color)
-            .cornerRadius(16)
-            .shadow(radius: 4)
-
+            .onDelete(perform: delete)
         }
+        .navigationTitle("Habits")
+//        .toolbar {
+//            ToolbarItem(placement: .navigationBarLeading) {
+//                NavigationLink(destination: AddGoalView()) {
+//                    Image(systemName: "plus")
+//                }
+//            }
+//        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+              Button(action: {
+                authViewModel.signOut()
+                goalViewModel.clearGoals()
+              }) {
+                  Image(systemName: "rectangle.portrait.and.arrow.forward")
+                      .foregroundColor(.blue)
+              }
+            }
+        }
+      }
     }
+  
+  func delete(at offsets: IndexSet) {
+          for index in offsets {
+              let goal = goalViewModel.goals[index]
+              goalViewModel.deleteGoal(goal)
+          }
+      }
 }
 
-#Preview {
-    NavigationStack {
-        HomeListView(
-            title: "📖 Nya böcker",
-            color: .blue,
-            icon: "book.fill",
-            destination: Text("Demo destination")
-        )
-        .padding()
-    }
+#Preview("Light Mode") {
+    HomeListView()
+    .environmentObject(GoalViewModel())
+}
+#Preview("Dark Mode") {
+    HomeListView()
+    .environmentObject(GoalViewModel())
+    .preferredColorScheme(.dark)
 }
