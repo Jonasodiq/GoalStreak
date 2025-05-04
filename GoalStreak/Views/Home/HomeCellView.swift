@@ -35,6 +35,8 @@ struct HomeCellView<Destination: View>: View {
 }
 
 #Preview {
-  HomeCellView(title: "Test", color: .blue.opacity(0.2), icon: "🔹",
+  HomeCellView(title: "Test",
+               color: .blue.opacity(0.2),
+               icon: "🔹",
                destination: Text("Test"))
 }

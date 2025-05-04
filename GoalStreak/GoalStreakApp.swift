@@ -13,6 +13,18 @@ struct GoalStreakApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject var authViewModel = AuthViewModel()
     @StateObject var goalViewModel = GoalViewModel()
+    @AppStorage("selectedAppearance") var selectedAppearance: String = "system"
+    @StateObject var localizationManager = LocalizationManager()
+
+
+    var colorScheme: ColorScheme? {
+        switch selectedAppearance {
+        case "light": return .light
+        case "dark": return .dark
+        default: return nil
+        }
+    }
+
 
     var body: some Scene {
         WindowGroup {
@@ -26,8 +38,10 @@ struct GoalStreakApp: App {
                 LoginView()
               }
             }
+            .preferredColorScheme(colorScheme)
             .environmentObject(authViewModel)
             .environmentObject(goalViewModel)
+            .environmentObject(localizationManager)
         }
     }
 }

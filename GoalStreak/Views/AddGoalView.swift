@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AddGoalView: View {
     @EnvironmentObject var goalViewModel: GoalViewModel
+  @EnvironmentObject var localizationManager: LocalizationManager
     @Environment(\.dismiss) var dismiss
     @State private var goalName = ""
     @State private var emoji = "🎯"
@@ -20,13 +21,13 @@ struct AddGoalView: View {
 
     var body: some View {
         VStack(spacing: 20) {
+
+          Text(localizationManager.localizedString(for: "add_title")).font(.headline)
           
-          Text("Lägg till en vana").font(.headline)
-          
-            TextField("Ny vana", text: $goalName)
+            TextField(localizationManager.localizedString(for: "text_field"), text: $goalName)
               .textFieldStyle(.roundedBorder)
           
-          Text("Välj en emoji").font(.headline)
+          Text(localizationManager.localizedString(for: "choose_emoji")).font(.headline)
           
           LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 6), spacing: 10) {
               ForEach(availableEmojis, id: \.self) { emoji in
@@ -43,10 +44,10 @@ struct AddGoalView: View {
           .padding(.bottom)
 
 
-          ColorPicker("Välj färg", selection: $selectedColor)
+          ColorPicker(localizationManager.localizedString(for: "choose_color"), selection: $selectedColor)
 
 
-          Button("Spara") {
+          Button(localizationManager.localizedString(for: "save")) {
             let hex = selectedColor.toHex() ?? "#2196F3"
 
               goalViewModel.addGoal(name: goalName, emoji: selectedEmoji, colorHex: hex)
@@ -58,11 +59,12 @@ struct AddGoalView: View {
             Spacer()
         }
         .padding()
-        .navigationTitle("Lägg till Vana")
+//        .navigationTitle("Lägg till Vana")
     }
 }
 
 #Preview {
     AddGoalView()
         .environmentObject(GoalViewModel())
+        .environmentObject(LocalizationManager())
 }

@@ -11,6 +11,7 @@ import FirebaseFirestore
 struct HomeListView: View {
   @EnvironmentObject var goalViewModel: GoalViewModel
   @EnvironmentObject var authViewModel: AuthViewModel
+  @EnvironmentObject var localizationManager: LocalizationManager
     
     var body: some View {
       NavigationStack {
@@ -26,24 +27,17 @@ struct HomeListView: View {
             }
             .onDelete(perform: delete)
         }
-        .navigationTitle("Habits")
-//        .toolbar {
-//            ToolbarItem(placement: .navigationBarLeading) {
-//                NavigationLink(destination: AddGoalView()) {
-//                    Image(systemName: "plus")
-//                }
-//            }
-//        }
+        .navigationTitle(localizationManager.localizedString(for: "habits_title"))
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-              Button(action: {
-                authViewModel.signOut()
-                goalViewModel.clearGoals()
-              }) {
-                  Image(systemName: "rectangle.portrait.and.arrow.forward")
-                      .foregroundColor(.blue)
-              }
+          ToolbarItem(placement: .navigationBarTrailing) {
+            Button(action: {
+              authViewModel.signOut()
+              goalViewModel.clearGoals()
+            }) {
+                Image(systemName: "rectangle.portrait.and.arrow.forward")
+                    .foregroundColor(.blue)
             }
+          }
         }
       }
     }
@@ -59,9 +53,11 @@ struct HomeListView: View {
 #Preview("Light Mode") {
     HomeListView()
     .environmentObject(GoalViewModel())
+    .environmentObject(LocalizationManager())
 }
 #Preview("Dark Mode") {
     HomeListView()
     .environmentObject(GoalViewModel())
+    .environmentObject(LocalizationManager())
     .preferredColorScheme(.dark)
 }

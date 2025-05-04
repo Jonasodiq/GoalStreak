@@ -58,4 +58,5 @@ struct HomeView: View {
 #Preview {
     HomeView()
     .environmentObject(GoalViewModel())
+    .environmentObject(LocalizationManager())
 }

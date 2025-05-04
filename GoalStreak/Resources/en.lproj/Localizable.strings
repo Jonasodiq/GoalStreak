@@ -1,0 +1,44 @@
+/* 
+  Localizable.strings (English).strings
+  GoalStreak
+
+  Created by Jonas Niyazson on 2025-05-04.
+  
+*/
+
+
+"settings_title" = "Settings";
+"language_section" = "Language";
+"notice_section" = "Notifications";
+"appearance_section" = "Appearance";
+"daily_reminders" = "Reminders";
+"change_password" = "Change Password";
+"delete_account" = "Delete Account";
+"about_section" = "About";
+"color_theme" = "Color Theme";
+"light_mode" = "Light Mode";
+"dark_mode" = "Dark Mode";
+"system_mode" = "System Default";
+"account_section" = "Account";
+"remove_account" = "Remove Account";
+"application" = "Application";
+"compatibility" = "Compatibility";
+"technology" = "Technology";
+"developer" = "Developer";
+"website_label" = "My Portfolio";
+"swedish" = "Swedish";
+"english" = "English";
+"copyright_footer" = "Copyright © 2025 Jonas Niyazson.\nAll rights reserved.";
+
+// HomeListView
+"habits_title" = "Habits";
+
+// AddGoalView
+"add_title" = "Add a habit";
+"text_field" = "New habit";
+"choose_emoji" = "Choose an emoji";
+"choose_color" = "Choose a color";
+"save" = "Save";
+
+
+

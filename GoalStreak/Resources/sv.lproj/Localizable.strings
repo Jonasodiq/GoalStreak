@@ -1,0 +1,41 @@
+/* 
+  Localizable.strings (English).strings
+  GoalStreak
+
+  Created by Jonas Niyazson on 2025-05-04.
+  
+*/
+
+
+"settings_title" = "Inställningar";
+"language_section" = "Språk";
+"notice_section" = "Påminnelser";
+"appearance_section" = "Utseende";
+"daily_reminders" = "Påminnelser";
+"change_password" = "Byt Lösenord";
+"delete_account" = "Ta bort Konto";
+"about_section" = "Om Appen";
+"color_theme" = "Färgtema";
+"light_mode" = "Ljust Läge";
+"dark_mode" = "Mörkt Läge";
+"system_mode" = "Systemstandard";
+"account_section" = "Konto";
+"remove_account" = "Ta bort Konto";
+"application" = "Applikation";
+"compatibility" = "Kompatibilitet";
+"technology" = "Teknologi";
+"developer" = "Utvecklare";
+"website_label" = "Min Portfolio";
+"swedish" = "Svenska";
+"english" = "Engelska";
+"copyright_footer" = "Copyright © 2025 Jonas Niyazson.\nAlla rättigheter förbehållna.";
+
+// HomeListView
+"habits_title" = "Vanor";
+
+// AddGoalView
+"add_title" = "Lägg till en vana";
+"text_field" = "Ny vana";
+"choose_emoji" = "Välj en emoji";
+"choose_color" = "Välj en färg";
+"save" = "Spara";
