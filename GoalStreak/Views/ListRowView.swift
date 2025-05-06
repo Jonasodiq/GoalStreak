@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ListRowView: View {
-  // MARK: - PROPERTIES
   
+  // MARK: - PROPERTIES
   @State var rowLabel: String
   @State var rowIcon: String
   @State var rowContent: String? = nil
@@ -19,7 +19,6 @@ struct ListRowView: View {
   
   var body: some View {
     LabeledContent {
-      // Content
       if rowContent != nil {
         Text(rowContent!)
           .foregroundColor(.primary)
@@ -32,7 +31,6 @@ struct ListRowView: View {
         EmptyView()
       }
     } label: {
-      // Label
       HStack {
         ZStack {
           RoundedRectangle(cornerRadius: 8)
@@ -42,13 +40,13 @@ struct ListRowView: View {
             .foregroundColor(.white)
             .fontWeight(.semibold)
         }
-        
         Text(rowLabel)
       }
     }
   }
 }
 
+// MARK: - PREVIEW
 #Preview {
   List {
     ListRowView(

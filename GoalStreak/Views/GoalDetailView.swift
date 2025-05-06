@@ -15,23 +15,30 @@ struct GoalDetailView: View {
 
     var body: some View {
         let weekData = generateWeekData(from: goalLogs)
-
-        VStack(alignment: .leading, spacing: 20) {
+    
+        VStack(alignment: .center, spacing: 20) {
+          
+          Divider().background(.blue)
+          
             Text("Streak: \(goal.streak) dagar i rad")
                 .font(.title2)
-
+          
+          Divider().background(.blue)
+          
             Text("Senast utförd: \(goal.lastCompletedDate.map { Self.dateFormatter.string(from: $0) } ?? "Aldrig")")
                 .font(.title3)
 
+          Divider().background(.blue)
+          
             Button(action: {
                 goalViewModel.markGoalCompleted(goal: goal)
             }) {
-                Text("✅ Markera som utförd idag")
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(isMarkedToday ? Color.gray : Color.green)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
+                Text("Markera som utförd idag")
+                  .padding()
+                  .frame(maxWidth: .infinity)
+                  .background(isMarkedToday ? Color.gray : Color.green)
+                  .foregroundColor(.white)
+                  .cornerRadius(10)
             }
             .disabled(isMarkedToday)
 
@@ -58,6 +65,8 @@ struct GoalDetailView: View {
                 .chartYScale(range: .plotDimension(padding: 10))
                 .padding(.bottom)
             }
+
+          Divider()
 
             Spacer()
         }
@@ -103,7 +112,6 @@ struct GoalDetailView: View {
       }
   }
 
-
     private static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
@@ -111,12 +119,16 @@ struct GoalDetailView: View {
     }()
 }
 
-
-
-#Preview("Light Mode") {
+// MARK: - PREVIEW
+#Preview() {
     GoalDetailView(goal: Goal(
         id: "123",
         name: "Läsa bok",
+        description: "Läs minst 30 minuter varje dag",
+        group: "Personlig utveckling",
+        period: .dayLong,
+        goalValue: 30,
+        valueUnit: "min",
         streak: 5,
         lastCompletedDate: Date(),
         emoji: "📚",
@@ -126,21 +138,3 @@ struct GoalDetailView: View {
     ))
     .environmentObject(GoalViewModel())
 }
-
-#Preview("Dark Mode") {
-    GoalDetailView(goal: Goal(
-        id: "456",
-        name: "Meditation",
-        streak: 3,
-        lastCompletedDate: Date(),
-        emoji: "🧘‍♂️",
-        colorHex: "#2196F3",
-        completionDates: [],
-        userId: "123"
-    ))
-    .environmentObject(GoalViewModel())
-    .preferredColorScheme(.dark)
-}
-
-
-

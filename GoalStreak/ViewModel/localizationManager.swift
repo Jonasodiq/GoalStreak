@@ -5,15 +5,15 @@
 //  Created by Jonas Niyazson on 2025-05-04.
 //
 
-import Foundation
 import SwiftUI
+import Foundation
 
-class LocalizationManager: ObservableObject {
+class localizationManager: ObservableObject {
     static var defaultLanguage: String {
         if let code = Locale.current.language.languageCode?.identifier {
             return code
         } else {
-            print("⚠️ Kunde inte hämta systemspråk, använder 'sv'")
+            print("Kunde inte hämta systemspråk, använder 'sv'")
             return "sv"
         }
     }

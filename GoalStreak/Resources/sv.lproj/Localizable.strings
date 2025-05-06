@@ -6,7 +6,20 @@
   
 */
 
+// Login
+"login" = "🔐 Logga in";
+"create_account" = "🔐 Skapa konto";
+"login_btn" = "Logga in";
+"account_btn" = "Skapa konto";
+"email_ph" = "E-post";
+"password_ph" = "Lösenord";
+"have_account" = "Har redan konto?";
+"new_account" = "Skapa nytt konto";
+"info_title" = "Om Appen";
+"info_message" = "Den här appen hjälper dig att sätta och följa upp dina mål. Du kan logga in eller skapa ett konto för att komma igång.";
 
+
+// Settings
 "settings_title" = "Inställningar";
 "language_section" = "Språk";
 "notice_section" = "Påminnelser";
@@ -28,6 +41,12 @@
 "website_label" = "Min Portfolio";
 "swedish" = "Svenska";
 "english" = "Engelska";
+"change_password" = "Byt lösenord";
+"delete_account" = "Radera konto";
+"delete_account_prompt" = "Skriv in ditt lösenord för att radera kontot";
+"password_placeholder" = "Lösenord";
+"cancel" = "Avbryt";
+"delete_account" = "Radera konto";
 "copyright_footer" = "Copyright © 2025 Jonas Niyazson.\nAlla rättigheter förbehållna.";
 
 // HomeListView

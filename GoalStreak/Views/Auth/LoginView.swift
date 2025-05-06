@@ -8,44 +8,101 @@
 import SwiftUI
 
 struct LoginView: View {
-    @EnvironmentObject var authViewModel: AuthViewModel
-    @State private var email = ""
-    @State private var password = ""
-    @State private var isNewUser = false
-    @State private var error: String?
-
-    var body: some View {
-        VStack(spacing: 20) {
-            Text(isNewUser ? "Skapa konto" : "Logga in")
-                .font(.largeTitle.bold())
-
-            TextField("E-post", text: $email)
-                .textFieldStyle(.roundedBorder)
-
-            SecureField("Lösenord", text: $password)
-                .textFieldStyle(.roundedBorder)
-
-            if let error = error {
-                Text(error).foregroundColor(.red).font(.caption)
+  @EnvironmentObject var authViewModel: AuthViewModel
+  @EnvironmentObject var LM: localizationManager
+  
+  @State private var email = ""
+  @State private var password = ""
+  @State private var isNewUser = false
+  @State private var error: String?
+  @State private var showInfo = false
+  
+  var body: some View {
+    ZStack(alignment: .topTrailing) {
+      Image("desktop-blue")
+        .resizable()
+        .edgesIgnoringSafeArea(.all)
+      
+      VStack(alignment: .center, spacing: 32) {
+        
+        // MARK: - TITLE
+        Image("GoalTitleBG")
+          .resizable()
+          .frame(width: 300, height: 200)
+          .shadow(color: .black.opacity(0.4), radius: 24, x: 8, y: 18)
+          .padding(.top, 60)
+        
+        // MARK: - Card
+        VStack(spacing: 24) {
+          Text(isNewUser ? LM.localizedString(for: "create_account") : LM.localizedString(for: "login"))
+            .font(.largeTitle.bold())
+            .foregroundColor(.blue)
+          
+          TextField(LM.localizedString(for: "email_ph"), text: $email)
+            .textFieldStyle(.roundedBorder)
+          
+          SecureField(LM.localizedString(for: "password_ph"), text: $password)
+            .textFieldStyle(.roundedBorder)
+            .submitLabel(.go)
+            .onSubmit {
+              authenticateUser()
             }
 
-            Button(isNewUser ? "Skapa konto" : "Logga in") {
-                authViewModel.authenticate(email: email, password: password, isNewUser: isNewUser) {
-                    self.error = $0
-                }
-            }
-            .buttonStyle(.borderedProminent)
-
-            Button(isNewUser ? "Har redan konto?" : "Skapa nytt konto") {
-                isNewUser.toggle()
-            }
-        }
-        .padding()
+          if let error = error {
+            Text(error).foregroundColor(.red).font(.caption)
+          }
+          
+          // MARK: - LOGIN BTN
+          Button(isNewUser ? LM.localizedString(for: "account_btn") : LM.localizedString(for: "login_btn")) {
+              authenticateUser()
+          }
+          .buttonStyle(.borderedProminent)
+          .bold(true)
+          .shadow(color: .black.opacity(0.3), radius: 8, x: 4, y: 8)
+          
+          Button(isNewUser ? LM.localizedString(for: "have_account") : LM.localizedString(for: "new_account")) {
+            isNewUser.toggle()
+          }
+          
+        } //: - VStack
+        .padding(24)
+        .background(Color(.secondarySystemBackground))
+        .cornerRadius(20)
+        .shadow(color: .black.opacity(0.4), radius: 24, x: 8, y: 18)
+        .padding(.horizontal, 32)
+      }
+      
+      // MARK: - INFO BTN
+      Button(action: {
+          showInfo = true
+      }) {
+          Image(systemName: "info.circle")
+            .font(.title2)
+            .padding()
+            .foregroundColor(.white)
+      }
+      .padding(.top, 40)
+      .padding(.trailing, 20)
+    }//: - ZStack
+//     .sheet(isPresented: $showInfo) {InfoView()}
+    .alert(LM.localizedString(for: "info_title"), isPresented: $showInfo) {
+        Button("OK", role: .cancel) { }
+    } message: {
+        Text(LM.localizedString(for: "info_message"))
     }
+  } //: - ZStack
+  
+  private func authenticateUser() {
+      authViewModel.authenticate(email: email, password: password, isNewUser: isNewUser) {
+        self.error = $0
+      }
+  }
+
 }
 
+// MARK: - PREVIEW
 #Preview {
-    LoginView()
-        .environmentObject(AuthViewModel())
+  LoginView()
+    .environmentObject(AuthViewModel())
+    .environmentObject(localizationManager())
 }
-
