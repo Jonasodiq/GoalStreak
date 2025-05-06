@@ -9,10 +9,15 @@ import SwiftUI
 
 struct HomeCellView<Destination: View>: View {
   let title: String
+  let subtitle: String?
+  let streak: Int
   let color: Color
   let icon: String
+  let currentValue: Double = 1      // uppnått värde
+  let goalValue: Double = 5         // mål
+  let valueUnit: String = "count"   // enhet
   let destination: Destination
-
+  
   var body: some View {
     NavigationLink(destination: destination) {
       HStack(spacing: 12) {
@@ -20,10 +25,29 @@ struct HomeCellView<Destination: View>: View {
         Text(icon)
           .font(.system(size: 32, weight: .bold, design: .monospaced))
 
-        Text(title)
-          .font(.headline)
-          .foregroundColor(.primary)
-          .multilineTextAlignment(.leading)
+        VStack(alignment: .leading, spacing: 4) {
+          Text(title)
+            .font(.headline)
+            .foregroundColor(.primary)
+                     
+          if let subtitle = subtitle, !subtitle.isEmpty {
+              Text(subtitle)
+                  .font(.caption)
+                  .foregroundColor(.secondary)
+          }
+        }
+        
+        Spacer()
+        
+        VStack(alignment: .trailing, spacing: 4) {
+          Text( "🎯 \(streak)")
+            .font(.caption)
+            .foregroundColor(.secondary)
+
+          Text("\(currentValue.clean)/\(goalValue.clean) \(valueUnit)")
+              .font(.caption)
+              .foregroundColor(.primary)
+        }
       }
       .padding()
       .frame(maxWidth: .infinity, minHeight: 80, alignment: .leading)
@@ -35,8 +59,11 @@ struct HomeCellView<Destination: View>: View {
 }
 
 #Preview {
-  HomeCellView(title: "Test",
-               color: .blue.opacity(0.2),
-               icon: "🔹",
-               destination: Text("Test"))
+  HomeCellView(
+    title: "Title",
+    subtitle: "Subtitle",
+    streak: 10,
+    color: .blue.opacity(0.2),
+    icon: "⏱️",
+    destination: Text("Test"))
 }

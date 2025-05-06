@@ -27,3 +27,9 @@ extension Date {
     }
 }
 
+extension Double {
+    var clean: String {
+        self.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", self) : String(self)
+    }
+}
+

@@ -11,21 +11,23 @@ import FirebaseFirestore
 struct HomeListView: View {
   @EnvironmentObject var goalViewModel: GoalViewModel
   @EnvironmentObject var authViewModel: AuthViewModel
-  @EnvironmentObject var localizationManager: LocalizationManager
+  @EnvironmentObject var localizationManager: localizationManager
     
     var body: some View {
       NavigationStack {
         List {
-            ForEach(goalViewModel.goals) { goal in
-                HomeCellView(
-                    title: goal.name,
-                    color: Color(hex: goal.colorHex) ?? .blue.opacity(0.2),
-                    icon: goal.emoji,
-                    destination: GoalDetailView(goal: goal)
-                )
-                .listRowBackground(Color.clear)
-            }
-            .onDelete(perform: delete)
+          ForEach(goalViewModel.goals) { goal in
+            HomeCellView(
+                title: goal.name,
+                subtitle: "",
+                streak: 0,
+                color: Color(hex: goal.colorHex) ?? .blue.opacity(0.2),
+                icon: goal.emoji,
+                destination: GoalProgressView(goal: goal)
+            )
+            .listRowBackground(Color.clear)
+          }
+          .onDelete(perform: delete)
         }
         .navigationTitle(localizationManager.localizedString(for: "habits_title"))
         .toolbar {
@@ -43,21 +45,15 @@ struct HomeListView: View {
     }
   
   func delete(at offsets: IndexSet) {
-          for index in offsets {
-              let goal = goalViewModel.goals[index]
-              goalViewModel.deleteGoal(goal)
-          }
-      }
+    for index in offsets {
+      let goal = goalViewModel.goals[index]
+      goalViewModel.deleteGoal(goal)
+    }
+  }
 }
 
-#Preview("Light Mode") {
+#Preview() {
     HomeListView()
     .environmentObject(GoalViewModel())
-    .environmentObject(LocalizationManager())
-}
-#Preview("Dark Mode") {
-    HomeListView()
-    .environmentObject(GoalViewModel())
-    .environmentObject(LocalizationManager())
-    .preferredColorScheme(.dark)
+    .environmentObject(localizationManager())
 }
