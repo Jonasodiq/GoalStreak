@@ -23,6 +23,8 @@ DerivedData/
 *.perspectivev3
 !default.perspectivev3
 
+GoogleService-info.plist
+
 ## Obj-C/Swift specific
 *.hmap
 
