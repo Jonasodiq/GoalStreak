@@ -11,29 +11,30 @@ import FirebaseFirestore
 
 class AuthViewModel: ObservableObject {
   @Published var user: User?
-  // Referens till Firebase listener för inloggningsstatus
+  // Reference to Firebase listener for login status
   private var handle: AuthStateDidChangeListenerHandle?
   
-  // Startar lyssning på auth status
+  // Starts listening on auth status
   init() {
       handle = Auth.auth().addStateDidChangeListener { _, user in
           self.user = user
       }
   }
     
-  // Skapar konto om `isNewUser` är true, annars loggar in.
+  // Creates account & login
   func authenticate(email: String, password: String, isNewUser: Bool, completion: @escaping (String?) -> Void) {
-      if isNewUser { // Skapa nytt konto
+      if isNewUser { // A new account
           Auth.auth().createUser(withEmail: email, password: password) { _, error in
               completion(error?.localizedDescription)
           }
-      } else { // Logga in befintlig användare
+      } else { // login
           Auth.auth().signIn(withEmail: email, password: password) { _, error in
               completion(error?.localizedDescription)
           }
       }
   }
   
+  // Change password
   func changePassword(currentPassword: String, newPassword: String, completion: @escaping (String?) -> Void) {
       guard let user = Auth.auth().currentUser,
             let email = user.email else {
@@ -52,42 +53,14 @@ class AuthViewModel: ObservableObject {
               if let error = error {
                   completion("Kunde inte uppdatera lösenord: \(error.localizedDescription)")
               } else {
-                  completion(nil) // lyckades
-              }
-          }
-      }
-  }
-  
-  func deleteAccount(completion: @escaping (Error?) -> Void) {
-      guard let user = Auth.auth().currentUser else {
-          completion(NSError(domain: "Auth", code: 401, userInfo: [NSLocalizedDescriptionKey: "Ingen användare inloggad"]))
-          return
-      }
-
-      // Radera användardata i Firestore
-      let db = Firestore.firestore()
-      db.collection("users").document(user.uid).delete { error in
-          if let error = error {
-              completion(error)
-              return
-          }
-
-          // Radera själva användarkontot
-          user.delete { error in
-              if let error = error {
-                  completion(error)
-              } else {
-                  DispatchQueue.main.async {
-                      self.user = nil
-                  }
                   completion(nil)
               }
           }
       }
   }
   
-
-  func deleteAccountWithReauth(password: String, completion: @escaping (String?) -> Void) {
+  // Delete account
+  func deleteAccount(password: String, completion: @escaping (String?) -> Void) {
       guard let user = Auth.auth().currentUser,
             let email = user.email else {
           completion("Ingen inloggad användare.")
@@ -115,12 +88,11 @@ class AuthViewModel: ObservableObject {
       }
   }
 
-
   func signOut() {
       try? Auth.auth().signOut()
   }
 
-  // Avsluta listener vid deinit
+  // Terminate listener on deinit
   deinit {
       if let handle = handle {
           Auth.auth().removeStateDidChangeListener(handle)

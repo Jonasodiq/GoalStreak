@@ -22,12 +22,12 @@
 // Settings
 "settings_title" = "Inställningar";
 "language_section" = "Språk";
-"notice_section" = "Påminnelser";
+"notice_section" = "Notiser";
 "appearance_section" = "Utseende";
 "daily_reminders" = "Påminnelser";
 "change_password" = "Byt Lösenord";
 "delete_account" = "Ta bort Konto";
-"about_section" = "Om Appen";
+"about_section" = "Appinfo";
 "color_theme" = "Färgtema";
 "light_mode" = "Ljust Läge";
 "dark_mode" = "Mörkt Läge";

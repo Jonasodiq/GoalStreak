@@ -10,7 +10,7 @@ import SwiftUI
 struct SettingsView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @EnvironmentObject var goalViewModel: GoalViewModel
-    @EnvironmentObject var LM: localizationManager
+    @EnvironmentObject var LM: LocalizationManager
 
     @State private var notificationsEnabled = false
     @State private var showChangePasswordView = false
@@ -23,7 +23,7 @@ struct SettingsView: View {
       case light, dark, system
       var id: String { self.rawValue }
 
-      func localizedLabel(using manager: localizationManager) -> String {
+      func localizedLabel(using manager: LocalizationManager) -> String {
         switch self {
         case .light: return manager.localizedString(for: "light_mode")
         case .dark: return manager.localizedString(for: "dark_mode")
@@ -143,5 +143,5 @@ struct SettingsView: View {
   SettingsView()
     .environmentObject(AuthViewModel())
     .environmentObject(GoalViewModel())
-    .environmentObject(localizationManager())
+    .environmentObject(LocalizationManager())
 }

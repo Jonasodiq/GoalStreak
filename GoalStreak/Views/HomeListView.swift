@@ -11,19 +11,22 @@ import FirebaseFirestore
 struct HomeListView: View {
   @EnvironmentObject var goalViewModel: GoalViewModel
   @EnvironmentObject var authViewModel: AuthViewModel
-  @EnvironmentObject var localizationManager: localizationManager
+  @EnvironmentObject var localizationManager: LocalizationManager
     
     var body: some View {
       NavigationStack {
         List {
           ForEach(goalViewModel.goals) { goal in
             HomeCellView(
-                title: goal.name,
-                subtitle: "",
-                streak: 0,
-                color: Color(hex: goal.colorHex) ?? .blue.opacity(0.2),
-                icon: goal.emoji,
-                destination: GoalProgressView(goal: goal)
+              title: goal.name,
+              subtitle: goal.description,
+              streak: goal.streak,
+              color: Color(hex: goal.colorHex) ?? .blue.opacity(0.2),
+              icon: goal.emoji,
+              currentValue: goal.currentValue ?? 1,
+              goalValue: goal.goalValue ?? 5,
+              valueUnit: goal.valueUnit ?? "count",
+              destination: GoalProgressView(goal: goal)
             )
             .listRowBackground(Color.clear)
           }
@@ -37,7 +40,7 @@ struct HomeListView: View {
               goalViewModel.clearGoals()
             }) {
                 Image(systemName: "rectangle.portrait.and.arrow.forward")
-                    .foregroundColor(.blue)
+                  .foregroundColor(.blue)
             }
           }
         }
@@ -55,5 +58,5 @@ struct HomeListView: View {
 #Preview() {
     HomeListView()
     .environmentObject(GoalViewModel())
-    .environmentObject(localizationManager())
+    .environmentObject(LocalizationManager())
 }

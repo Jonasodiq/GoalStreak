@@ -8,14 +8,20 @@
 import SwiftUI
 
 struct LoginView: View {
-  @EnvironmentObject var authViewModel: AuthViewModel
-  @EnvironmentObject var LM: localizationManager
   
-  @State private var email = ""
-  @State private var password = ""
+  // MARK: - PROPERTIES
+  @EnvironmentObject var authViewModel: AuthViewModel
+  @EnvironmentObject var LM: LocalizationManager
+  
+//  @State private var email = ""
+//  @State private var password = ""
   @State private var isNewUser = false
   @State private var error: String?
   @State private var showInfo = false
+  
+  // Temporarily under development
+  @State private var email: String = "test@test.com"
+  @State private var password: String = "123456"
   
   var body: some View {
     ZStack(alignment: .topTrailing) {
@@ -70,7 +76,7 @@ struct LoginView: View {
         .cornerRadius(20)
         .shadow(color: .black.opacity(0.4), radius: 24, x: 8, y: 18)
         .padding(.horizontal, 32)
-      }
+      } //: - VStack
       
       // MARK: - INFO BTN
       Button(action: {
@@ -90,7 +96,7 @@ struct LoginView: View {
     } message: {
         Text(LM.localizedString(for: "info_message"))
     }
-  } //: - ZStack
+  }  //: - Body
   
   private func authenticateUser() {
       authViewModel.authenticate(email: email, password: password, isNewUser: isNewUser) {
@@ -104,5 +110,5 @@ struct LoginView: View {
 #Preview {
   LoginView()
     .environmentObject(AuthViewModel())
-    .environmentObject(localizationManager())
+    .environmentObject(LocalizationManager())
 }
