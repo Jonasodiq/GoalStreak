@@ -9,7 +9,7 @@ import Foundation
 
 struct WeekData: Identifiable {
     let id = UUID()
-    let day: String    // Ex: "Mon"
-    let date: Date     // Faktiska datumet
-    let count: Int     // Hur många gånger vanan markerats den dagen
+    let day: String 
+    let date: Date
+    let count: Int
 }

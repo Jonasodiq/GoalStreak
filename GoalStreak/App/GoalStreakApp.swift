@@ -14,7 +14,7 @@ struct GoalStreakApp: App {
     @StateObject var authViewModel = AuthViewModel()
     @StateObject var goalViewModel = GoalViewModel()
     @AppStorage("selectedAppearance") var selectedAppearance: String = "system"
-    @StateObject var LM = localizationManager()
+    @StateObject var LM = LocalizationManager()
 
 
     var colorScheme: ColorScheme? {

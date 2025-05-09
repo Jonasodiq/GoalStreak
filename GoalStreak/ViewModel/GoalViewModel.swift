@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import FirebaseFirestore
 import FirebaseAuth
+import FirebaseFirestore
 
 class GoalViewModel: ObservableObject {
     @Published var goals = [Goal]()
@@ -15,7 +15,7 @@ class GoalViewModel: ObservableObject {
 
     private var db = Firestore.firestore()
 
-    // Hämtar alla mål som tillhör inloggad användare
+    // Fetchs all streaks
     func fetchGoals() {
       guard let userId = Auth.auth().currentUser?.uid else {
           print("Ingen inloggad användare.")
@@ -38,11 +38,10 @@ class GoalViewModel: ObservableObject {
         }
     }
   
-  // Lägger till ett nytt mål
+  // Add a new streak
   func addGoal(
       name: String,
       description: String,
-      group: String,
       emoji: String,
       colorHex: String,
       period: GoalPeriod,
@@ -55,7 +54,6 @@ class GoalViewModel: ObservableObject {
           id: nil,
           name: name,
           description: description,
-          group: group,
           period: period,
           goalValue: goalValue,
           valueUnit: valueUnit,
@@ -63,7 +61,6 @@ class GoalViewModel: ObservableObject {
           lastCompletedDate: nil,
           emoji: emoji,
           colorHex: colorHex,
-          completionDates: [],
           userId: userId
       )
 
@@ -73,7 +70,7 @@ class GoalViewModel: ObservableObject {
          }
   }
 
-  // Markerar ett mål som slutfört
+  // Marks a goal as completed and updates the streak
   func markGoalCompleted(goal: Goal) {
       guard let goalID = goal.id else { return }
 
@@ -95,6 +92,7 @@ class GoalViewModel: ObservableObject {
       }
   }
   
+  // Updates in the database
   func updateGoal(_ goal: Goal) {
       guard let id = goal.id else { return }
       do {
@@ -107,6 +105,7 @@ class GoalViewModel: ObservableObject {
       }
   }
   
+  // Remove func
   func deleteGoal(_ goal: Goal) {
       guard let id = goal.id else { return }
       db.collection("goals").document(id).delete { error in
@@ -116,7 +115,7 @@ class GoalViewModel: ObservableObject {
       }
   }
   
-  // Hämtar loggar för ett specifikt mål
+  //  Fetchs logs for a specific streak
   func fetchLogs(for goalId: String, completion: @escaping ([GoalLog]) -> Void) {
     db.collection("goal_logs")
     .whereField("goalId", isEqualTo: goalId)
@@ -126,12 +125,12 @@ class GoalViewModel: ObservableObject {
     }
   }
   
-  // Rensar alla lokala mål
+  // Clears all
   func clearGoals() {
       self.goals = []
   }
   
-  // Hämtar loggar de senaste 7 dagarna och räknar förekomster per dag
+  // Fetchs logs for the last 7 days
   func fetchWeeklyData(for goalId: String, completion: @escaping ([WeekData]) -> Void) {
     let calendar = Calendar.current
     let today = calendar.startOfDay(for: Date())
@@ -167,5 +166,69 @@ class GoalViewModel: ObservableObject {
           completion(days)
       }
   }
+  
+  // Updates a time-based goal based on time spent
+  func updateProgress(for goal: Goal, elapsedSeconds: Int) -> Goal {
+      var updatedGoal = goal
+      let multiplier: Double
+      switch goal.valueUnit?.lowercased() {
+      case "sec": multiplier = 1
+      case "min": multiplier = 60
+      case "hr":  multiplier = 3600
+      default:    multiplier = 60
+      }
 
+      updatedGoal.currentValue = Double(elapsedSeconds) / multiplier
+      updateGoal(updatedGoal)
+      return updatedGoal
+  }
+
+  // Resets the target's current value to zero
+  func resetGoal(_ goal: Goal) -> Goal {
+      var updatedGoal = goal
+      updatedGoal.currentValue = 0
+      updateGoal(updatedGoal)
+      return updatedGoal
+  }
+
+  // Sets new goal in minutes
+  func setGoalValue(for goal: Goal, minutes: Int) -> Goal {
+      var updatedGoal = goal
+      switch goal.valueUnit?.lowercased() {
+      case "min":
+          updatedGoal.goalValue = Double(minutes)
+      case "sec":
+          updatedGoal.goalValue = Double(minutes * 60)
+      case "hr":
+          updatedGoal.goalValue = Double(minutes) / 60.0
+      default:
+          break
+      }
+      updateGoal(updatedGoal)
+      return updatedGoal
+  }
+  
+  // Increases the current value of the target by 1 step and returns the updated target
+  func incrementValue(for goal: Goal) -> Goal {
+      var updatedGoal = goal
+      let current = updatedGoal.currentValue ?? 0
+      let target = updatedGoal.goalValue ?? 1
+
+      if current < target {
+          updatedGoal.currentValue = current + 1
+          updateGoal(updatedGoal)
+      }
+
+      return updatedGoal
+  }
+
+  // Checks if the goal is complete and marks it as done
+  func checkIfGoalCompleted(_ goal: Goal) -> Bool {
+      guard let current = goal.currentValue, let target = goal.goalValue else { return false }
+      if current >= target {
+          markGoalCompleted(goal: goal)
+          return true
+      }
+      return false
+  }
 }

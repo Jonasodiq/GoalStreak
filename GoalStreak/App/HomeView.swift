@@ -15,22 +15,22 @@ struct HomeView: View {
       ZStack {
         TabView(selection: $selectedTab) {
           HomeListView()
-            .tabItem {
-              Image(systemName: "house")
-            }
-            .tag(0)
-            AddGoalView(selectedTab: $selectedTab)
+          .tabItem {
+            Image(systemName: "house")
+          }
+          .tag(0)
+          
+          GoalFormView(mode: .create, selectedTab: $selectedTab)
               .tabItem {
-              EmptyView()
-//            Image(systemName: "plus.circle.fill")
+                  EmptyView()
               }
               .tag(1)
 
-            SettingsView()
-              .tabItem {
-                  Image(systemName: "gearshape")
-              }
-              .tag(2)
+          SettingsView()
+            .tabItem {
+                Image(systemName: "gearshape")
+            }
+            .tag(2)
         } //: - TabView
         
         VStack {
@@ -43,11 +43,11 @@ struct HomeView: View {
               Image(systemName: "plus.circle.fill")
                 .resizable()
                 .frame(width: 60, height: 60)
-                .foregroundColor(selectedTab == 1 ? .blue : .gray.opacity(0.4))
+                .foregroundColor(selectedTab == 1 ? .blue : .gray.opacity(0.5))
                 .background(Color.white.clipShape(Circle()))
-                .shadow(radius: 4)
             }
             .offset(y: -8)
+            
             Spacer()
           }
         } //: - VStack
@@ -58,7 +58,7 @@ struct HomeView: View {
 #Preview {
     HomeView()
         .environmentObject(GoalViewModel())
-        .environmentObject(localizationManager())
+        .environmentObject(LocalizationManager())
 }
 
 

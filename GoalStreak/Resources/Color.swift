@@ -8,7 +8,8 @@
 import SwiftUI
 
 extension Color {
-    /// Initierar en färg från en hex-sträng, t.ex. "#FF0000"
+  
+    /// Initializes a `Color` from a hex string, e.g. "#FF0000"
     init?(hex: String?) {
         guard let hex = hex else { return nil }
         var hexFormatted = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
@@ -27,7 +28,7 @@ extension Color {
         self.init(red: r, green: g, blue: b)
     }
 
-    /// Konverterar en `Color` till en hex-sträng, t.ex. "#FF0000"
+    /// Converts a `Color` to a hex string, e.g. "#FF0000"
     func toHex() -> String? {
         let uiColor = UIColor(self)
         var red: CGFloat = 0
@@ -46,7 +47,7 @@ extension Color {
         )
     }
     
-    /// Fördefinierade färger för mål
+    /// Predefined colors for targets
     static let predefinedGoalColors: [String: Color] = [
         "#007AFF": .blue,
         "#FF3B30": .red,
@@ -59,4 +60,5 @@ extension Color {
         "#FF2D55": .pink
     ]
 }
+
 
