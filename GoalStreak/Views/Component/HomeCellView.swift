@@ -25,8 +25,9 @@ struct HomeCellView<Destination: View>: View {
       return min(currentValue / goalValue, 1.0)
     }
     
+    // MARK: - BODY
     var body: some View {
-      NavigationLink(destination: destination) {
+      NavigationLink(destination: destination.onAppear{SoundPlayer.play("pop")}) {
         GeometryReader { geometry in
           ZStack(alignment: .leading) {
               // BG progress bar
@@ -45,8 +46,8 @@ struct HomeCellView<Destination: View>: View {
                   
                   VStack(alignment: .leading, spacing: 4) {
                     Text(title)
-                      .font(.headline)
-                      .foregroundColor(.primary)
+                    .font(.headline)
+                    .foregroundColor(.primary)
                     
                     if let subtitle = subtitle, !subtitle.isEmpty {
                       let maxLength = 22
@@ -98,4 +99,3 @@ struct HomeCellView<Destination: View>: View {
         destination: Text("Detaljer")
     )
 }
-

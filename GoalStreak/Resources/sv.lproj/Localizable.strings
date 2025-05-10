@@ -21,33 +21,43 @@
 
 // Settings
 "settings_title" = "Inställningar";
-"language_section" = "Språk";
-"notice_section" = "Notiser";
-"appearance_section" = "Utseende";
-"daily_reminders" = "Påminnelser";
+"account_section" = "Konto";
 "change_password" = "Byt Lösenord";
 "delete_account" = "Ta bort Konto";
-"about_section" = "Appinfo";
+"notice_section" = "Notiser";
+"notice_item" = "Notiser";
+"sound_section" = "Ljud effekt";
+"sound_item" = "Ljud";
+"language_section" = "Språk";
+"swedish" = "Svenska";
+"english" = "Engelska";
+"appearance_section" = "Utseende";
 "color_theme" = "Färgtema";
 "light_mode" = "Ljust Läge";
 "dark_mode" = "Mörkt Läge";
-"system_mode" = "Systemstandard";
-"account_section" = "Konto";
-"remove_account" = "Ta bort Konto";
+"about_section" = "Appinfo";
 "application" = "Applikation";
 "compatibility" = "Kompatibilitet";
 "technology" = "Teknologi";
 "developer" = "Utvecklare";
 "website_label" = "Min Portfolio";
-"swedish" = "Svenska";
-"english" = "Engelska";
+
+"copyright_footer" = "Copyright © 2025 Jonas Niyazson.\nAlla rättigheter förbehållna.";
+
+"system_mode" = "Systemstandard";
+"remove_account" = "Ta bort Konto";
 "change_password" = "Byt lösenord";
 "delete_account" = "Radera konto";
 "delete_account_prompt" = "Skriv in ditt lösenord för att radera kontot";
 "password_placeholder" = "Lösenord";
 "cancel" = "Avbryt";
 "delete_account" = "Radera konto";
-"copyright_footer" = "Copyright © 2025 Jonas Niyazson.\nAlla rättigheter förbehållna.";
+
+"logout_title" = "Logga ut?";
+"logout_message" = "Är du säker på att du vill logga ut?";
+"logout_confirm" = "Logga ut";
+"cancel" = "Avbryt";
+
 
 // HomeListView
 "habits_title" = "Vanor";

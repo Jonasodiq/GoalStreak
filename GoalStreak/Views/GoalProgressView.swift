@@ -14,6 +14,7 @@ struct GoalProgressView: View {
 
     @State private var showEditSheet = false
 
+    // MARK: - BODY
     var body: some View {
       ZStack {
         Color(hex: goal.colorHex).opacity(0.1).edgesIgnoringSafeArea(.all)
@@ -23,7 +24,7 @@ struct GoalProgressView: View {
             .font(.title2)
           
           Text(goal.emoji)
-            .font(.largeTitle)
+            .font(.system(size: 64, weight: .bold, design: .default))
           
           if let description = goal.description {
             Text(description)
@@ -35,16 +36,18 @@ struct GoalProgressView: View {
         }
         .padding()
         .navigationTitle(goal.name)
-        .toolbar {
+        .toolbar { // MARK: - Edit/Delete BTN
           ToolbarItem(placement: .navigationBarTrailing) {
             Menu {
-              Button {
+              Button { // Edit
+                SoundPlayer.play("pop")
                 showEditSheet = true
               } label: {
                 Label("Redigera", systemImage: "pencil")
               }
-              
+              // Delete
               Button(role: .destructive) {
+                SoundPlayer.play("vand-blad-1")
                 goalViewModel.deleteGoal(goal)
                 presentationMode.wrappedValue.dismiss()
               } label: {
@@ -70,21 +73,20 @@ struct GoalProgressView: View {
 }
 
 // MARK: - PREVIEW
-struct GoalProgressView_Previews: PreviewProvider {
-    static var previews: some View {
-        let previewGoal = Goal(
-            id: "demo123",
-            name: "Read Book",
-            description: "Läs minst 20 minuter varje kväll",
-            period: .dayLong,
-            goalValue: 20.0,
-            valueUnit: "min",
-            streak: 7,
-            lastCompletedDate: Date(),
-            emoji: "📖",
-            colorHex: "#007AFF",
-            userId: "user_abc"
-        )
-        return GoalProgressView(goal: previewGoal)
-    }
+#Preview {
+    let previewGoal = Goal(
+        id: "demo123",
+        name: "Read Book",
+        description: "Läs minst 20 minuter varje kväll",
+        period: .dayLong,
+        goalValue: 20.0,
+        valueUnit: "min",
+        streak: 7,
+        lastCompletedDate: Date(),
+        emoji: "📖",
+        colorHex: "#007AFF",
+        userId: "user_abc"
+    )
+    return GoalProgressView(goal: previewGoal)
 }
+

@@ -9,17 +9,19 @@ import SwiftUI
 
 struct AccountView: View {
   
-  // MARK: - PROPERTIES
+    // MARK: - Environment
     @EnvironmentObject var authViewModel: AuthViewModel
     @EnvironmentObject var goalViewModel: GoalViewModel
     @Environment(\.dismiss) var dismiss
-
+  
+    // MARK: - STATE
     @State private var currentPassword = ""
     @State private var newPassword = ""
     @State private var confirmNewPassword = ""
     @State private var passwordChangeError: String?
     @State private var deleteError: String?
     @State private var passwordForDeletion = ""
+    @State private var showDeleteConfirmation = false
 
     var isChangingPassword: Bool
 
@@ -27,7 +29,7 @@ struct AccountView: View {
       ZStack {
         Form { if isChangingPassword {
             
-          // MARK: Change password form
+          // MARK: Change password
           Section(header: Text("Byt lösenord").font(.headline).foregroundColor(.blue)) {
             VStack(alignment: .leading, spacing: 0) {
               SecureField("Nuvarande lösenord", text: $currentPassword)
@@ -54,31 +56,27 @@ struct AccountView: View {
             
             // MARK: - Change BTN
             Button(action: {
-              if newPassword != confirmNewPassword {
-                  passwordChangeError = "Lösenorden matchar inte."
-              } else {
-              authViewModel.changePassword(currentPassword: currentPassword, newPassword: newPassword) { error in
-                  if let error = error {
-                      passwordChangeError = error
-                  } else {
-                    passwordChangeError = nil
-                    dismiss()
-                  }
+                guard validatePasswordChange() else { return }
+
+                SoundPlayer.play("pop")
+                authViewModel.changePassword(currentPassword: currentPassword, newPassword: newPassword) { error in
+                    if let error = error {
+                        SoundPlayer.play("error")
+                        passwordChangeError = error
+                    } else {
+                        SoundPlayer.play("success")
+                        dismiss()
+                    }
                 }
-              }
             }) {
                 Text("Byt lösenord")
-                  .fontWeight(.bold)
-                  .padding()
-                  .frame(maxWidth: .infinity)
-                  .background(Color.blue)
-                  .foregroundColor(.white)
-                  .cornerRadius(10)
+                    .primaryButtonStyle(backgroundColor: .blue)
+                    .padding()
             }
-            .padding()
           } //: - Section
           } else {
-            // MARK: Delete account form
+            
+            // MARK: Delete account
             Section(header: Text("Radera konto").font(.headline).foregroundColor(.red)) {
                 SecureField("Lösenord för radering", text: $passwordForDeletion)
                   .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -90,27 +88,36 @@ struct AccountView: View {
                       .foregroundColor(.red)
                       .padding(.horizontal)
                 }
+              
               // MARK: - Delete BTN
-                Button(action: {
-                authViewModel.deleteAccount(password: passwordForDeletion) { error in
-                    if let error = error {
-                        deleteError = error
-                    } else {
-                        deleteError = nil
-                        dismiss()
-                        goalViewModel.clearGoals()
-                    }
-                  }
-                }) {
-                    Text("Radera konto")
-                      .fontWeight(.bold)
+              Button(action: {
+                  guard validateAccountDeletion() else { return }
+                  showDeleteConfirmation = true // Visa bekräftelse-alert
+              }) {
+                  Text("Radera konto")
+                      .primaryButtonStyle(backgroundColor: .red)
                       .padding()
-                      .frame(maxWidth: .infinity)
-                      .background(Color.red)
-                      .foregroundColor(.white)
-                      .cornerRadius(10)
-                }
-                .padding()
+              }
+              .alert("Är du säker?", isPresented: $showDeleteConfirmation) {
+                  Button("Radera", role: .destructive) {
+                      SoundPlayer.play("pop")
+                      authViewModel.deleteAccount(password: passwordForDeletion) { error in
+                          if let error = error {
+                              SoundPlayer.play("error")
+                              deleteError = error
+                          } else {
+                              SoundPlayer.play("success")
+                              dismiss()
+                              goalViewModel.clearGoals()
+                          }
+                      }
+                  }
+                  Button("Avbryt", role: .cancel) { }
+              } message: {
+                  Text("Detta går inte att ångra.")
+              }
+
+              .padding()
             }
           } //: - If sats
         } //: - Form
@@ -124,6 +131,32 @@ struct AccountView: View {
         .padding(.top)
       } //: - ZStack
     }
+  
+    private func validatePasswordChange() -> Bool {
+        if currentPassword.isEmpty || newPassword.isEmpty || confirmNewPassword.isEmpty {
+            SoundPlayer.play("error")
+            passwordChangeError = "Fyll i alla fält."
+            return false
+        }
+        
+        if newPassword != confirmNewPassword {
+            SoundPlayer.play("error")
+            passwordChangeError = "Lösenorden matchar inte."
+            return false
+        }
+        return true
+    }
+  
+    private func validateAccountDeletion() -> Bool {
+        if passwordForDeletion.isEmpty {
+            SoundPlayer.play("error")
+            deleteError = "Fyll i lösenordet för att radera kontot."
+            return false
+        }
+        return true
+    }
+
+
 }
 
 // MARK: - PREVIEW

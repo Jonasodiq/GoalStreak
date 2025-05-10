@@ -21,33 +21,43 @@
 
 // Settings
 "settings_title" = "Settings";
-"language_section" = "Language";
-"notice_section" = "Notifications";
-"appearance_section" = "Appearance";
-"daily_reminders" = "Notifications";
+"account_section" = "Account";
 "change_password" = "Change Password";
 "delete_account" = "Delete Account";
-"about_section" = "About";
-"color_theme" = "Color Theme";
+"notice_section" = "Notifications";
+"notice_item" = "Notifications";
+"sound_section" = "Sound effect";
+"sound_item" = "Sound";
+"language_section" = "Language";
+"swedish" = "Swedish";
+"english" = "English";
+"appearance_section" = "Appearance";
+"color_theme" = "Theme";
 "light_mode" = "Light Mode";
 "dark_mode" = "Dark Mode";
-"system_mode" = "System Default";
-"account_section" = "Account";
-"remove_account" = "Remove Account";
+"about_section" = "About";
 "application" = "Application";
 "compatibility" = "Compatibility";
 "technology" = "Technology";
 "developer" = "Developer";
 "website_label" = "My Portfolio";
-"swedish" = "Swedish";
-"english" = "English";
+
+"copyright_footer" = "Copyright © 2025 Jonas Niyazson.\nAll rights reserved.";
+
+"system_mode" = "System Default";
+"remove_account" = "Remove Account";
 "change_password" = "Change password";
 "delete_account" = "Delete account";
 "delete_account_prompt" = "Enter your password to delete account";
 "password_placeholder" = "Password";
 "cancel" = "Cancel";
 "delete_account" = "Delete account";
-"copyright_footer" = "Copyright © 2025 Jonas Niyazson.\nAll rights reserved.";
+
+"logout_title" = "Log out?";
+"logout_message" = "Are you sure you want to log out?";
+"logout_confirm" = "Log out";
+"cancel" = "Cancel";
+
 
 // HomeListView
 "habits_title" = "Habits";
