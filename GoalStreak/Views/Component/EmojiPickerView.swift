@@ -8,28 +8,29 @@
 import SwiftUI
 
 struct EmojiPickerView: View {
-    @Binding var selectedEmoji: String
-    let availableEmojis: [String]
+  @Binding var selectedEmoji: String
+  let availableEmojis: [String]
 
-    var body: some View {
-      ScrollView(.horizontal, showsIndicators: false) {
-        HStack(spacing: 12) {
-          ForEach(availableEmojis, id: \.self) { emoji in
-            Text(emoji)
-              .font(.largeTitle)
-              .padding(8)
-              .background(
-                Circle()
-                .fill(selectedEmoji == emoji ? Color.blue.opacity(0.2) : Color.clear)
-              )
-              .onTapGesture {
-                  selectedEmoji = emoji
-              }
+  var body: some View {
+    ScrollView(.horizontal, showsIndicators: false) {
+      HStack(spacing: 12) {
+        ForEach(availableEmojis, id: \.self) { emoji in
+          Text(emoji)
+          .font(.largeTitle)
+          .padding(8)
+          .background(
+            Circle()
+            .fill(selectedEmoji == emoji ? Color.blue.opacity(0.2) : Color.clear)
+          )
+          .onTapGesture {
+            SoundPlayer.play("pop")
+            selectedEmoji = emoji
           }
         }
-        .padding(.vertical, 4)
       }
+      .padding(.vertical, 4)
     }
+  }
 }
 
 // MARK: - PREVIEW
@@ -40,4 +41,3 @@ struct EmojiPickerView: View {
     )
     .background(.gray.opacity(0.2))
 }
-

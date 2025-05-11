@@ -13,6 +13,7 @@ struct LoginView: View {
   @EnvironmentObject var authViewModel: AuthViewModel
   @EnvironmentObject var LM: LocalizationManager
   
+  // MARK: - STATE
 //  @State private var email = ""
 //  @State private var password = ""
   @State private var isNewUser = false
@@ -61,6 +62,7 @@ struct LoginView: View {
           // MARK: - LOGIN BTN
           Button(isNewUser ? LM.localizedString(for: "account_btn") : LM.localizedString(for: "login_btn")) {
               authenticateUser()
+            SoundPlayer.play("click")
           }
           .buttonStyle(.borderedProminent)
           .bold(true)
@@ -68,6 +70,7 @@ struct LoginView: View {
           
           Button(isNewUser ? LM.localizedString(for: "have_account") : LM.localizedString(for: "new_account")) {
             isNewUser.toggle()
+            SoundPlayer.play("pop")
           }
           
         } //: - VStack
@@ -76,11 +79,12 @@ struct LoginView: View {
         .cornerRadius(20)
         .shadow(color: .black.opacity(0.4), radius: 24, x: 8, y: 18)
         .padding(.horizontal, 32)
-      } //: - VStack
+      } //: - Big_VStack
       
       // MARK: - INFO BTN
       Button(action: {
-          showInfo = true
+        SoundPlayer.play("pop-in")
+        showInfo = true
       }) {
           Image(systemName: "info.circle")
             .font(.title2)
@@ -90,13 +94,12 @@ struct LoginView: View {
       .padding(.top, 40)
       .padding(.trailing, 20)
     }//: - ZStack
-//     .sheet(isPresented: $showInfo) {InfoView()}
     .alert(LM.localizedString(for: "info_title"), isPresented: $showInfo) {
-        Button("OK", role: .cancel) { }
+        Button("OK", role: .cancel) {SoundPlayer.play("pop-up") }
     } message: {
         Text(LM.localizedString(for: "info_message"))
     }
-  }  //: - Body
+  } //: - Body
   
   private func authenticateUser() {
       authViewModel.authenticate(email: email, password: password, isNewUser: isNewUser) {

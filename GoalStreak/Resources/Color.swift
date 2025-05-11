@@ -60,5 +60,3 @@ extension Color {
         "#FF2D55": .pink
     ]
 }
-
-

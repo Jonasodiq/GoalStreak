@@ -61,7 +61,10 @@ class GoalViewModel: ObservableObject {
           lastCompletedDate: nil,
           emoji: emoji,
           colorHex: colorHex,
-          userId: userId
+          userId: userId,
+          
+          timeRemaining: Int(goalValue * 60), // standardvärde (om minuter)
+          isRunning: false
       )
 
       do { _ = try db.collection("goals").addDocument(from: newGoal)
@@ -92,11 +95,10 @@ class GoalViewModel: ObservableObject {
       }
   }
   
-  // Updates in the database
   func updateGoal(_ goal: Goal) {
       guard let id = goal.id else { return }
       do {
-          try db.collection("goals").document(id).setData(from: goal)
+          try db.collection("goals").document(id).setData(from: goal, merge: true) // merge: true sparar endast ändringar
           if let index = goals.firstIndex(where: { $0.id == id }) {
               goals[index] = goal
           }
@@ -104,6 +106,7 @@ class GoalViewModel: ObservableObject {
           print("Kunde inte uppdatera mål: \(error.localizedDescription)")
       }
   }
+
   
   // Remove func
   func deleteGoal(_ goal: Goal) {
@@ -208,7 +211,7 @@ class GoalViewModel: ObservableObject {
       return updatedGoal
   }
   
-  // Increases the current value of the target by 1 step and returns the updated target
+  // Increases the current value of the target by 1 step
   func incrementValue(for goal: Goal) -> Goal {
       var updatedGoal = goal
       let current = updatedGoal.currentValue ?? 0

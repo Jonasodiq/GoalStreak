@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUICore
 
 extension Date {
     func isSameDay(as other: Date) -> Bool {
@@ -33,3 +34,21 @@ extension Double {
     }
 }
 
+extension Goal {
+    var isCompleted: Bool {
+        guard let current = currentValue, let goal = goalValue else { return false }
+        return current >= goal
+    }
+}
+
+extension View {
+    func primaryButtonStyle(backgroundColor: Color) -> some View {
+        self
+            .fontWeight(.bold)
+            .padding()
+            .frame(maxWidth: .infinity)
+            .background(backgroundColor)
+            .foregroundColor(.white)
+            .cornerRadius(10)
+    }
+}

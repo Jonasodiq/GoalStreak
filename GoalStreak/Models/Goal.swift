@@ -27,4 +27,6 @@ struct Goal: Identifiable, Codable {
     var emoji: String
     var colorHex: String
     var userId: String
+    var timeRemaining: Int?
+    var isRunning: Bool?
 }

@@ -14,11 +14,11 @@ struct ColorPickerView: View {
     @Binding var selectedColorHex: String
     @Binding var customColor: Color
 
+    // MARK: - BODY
     var body: some View {
       VStack(alignment: .leading, spacing: 12) {
         Text("Välj färg").font(.headline)
 
-        // Colors
         HStack(spacing: 8) {
           ForEach(predefinedColors.sorted(by: { $0.key < $1.key }), id: \.key) { hex, color in
             Circle()
@@ -34,10 +34,11 @@ struct ColorPickerView: View {
             }
           }
         }
-
+        // MARK: - Picker
         ColorPicker("Anpassad färg", selection: $customColor)
           .onChange(of: customColor) {
-              selectedColorHex = customColor.toHex() ?? "#007AFF"
+            SoundPlayer.play("pop")
+            selectedColorHex = customColor.toHex() ?? "#007AFF"
           }
       }
       .padding()

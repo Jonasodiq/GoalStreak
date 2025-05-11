@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct HomeView: View {
     @EnvironmentObject var goalViewModel: GoalViewModel
-    @State private var selectedTab = 0  // vilken flik som är vald
+    @State private var selectedTab = 0
+    @State private var audioPlayer: AVAudioPlayer?
     
     var body: some View {
       ZStack {
@@ -38,6 +40,7 @@ struct HomeView: View {
           HStack {
             Spacer()
             Button(action: {
+                SoundPlayer.play("pop")
                 selectedTab = 1
             }) {
               Image(systemName: "plus.circle.fill")
@@ -51,6 +54,9 @@ struct HomeView: View {
             Spacer()
           }
         } //: - VStack
+        .onChange(of: selectedTab) { oldValue, newValue in
+          SoundPlayer.play("pop")
+        }
       } //: - ZStack
     } //: - Body
 }
@@ -60,5 +66,3 @@ struct HomeView: View {
         .environmentObject(GoalViewModel())
         .environmentObject(LocalizationManager())
 }
-
-
