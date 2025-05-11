@@ -31,7 +31,7 @@ struct GoalFormView: View {
     @State private var goalValue = ""
     @State private var selectedUnit = "count"
 
-    let availableEmojis = ["🎯", "📚", "🚶🏼‍♂️", "🧘‍♀️", "💧", "📝", "💪", "🧹", "🍎", "🎨", "📅", "🍭", "⏰"]
+    let availableEmojis = ["🎯","📚","🚶🏼‍♂️","🧘‍♀️","💧","📝","💪","🧹","🍎", "🎨","📅","🍭","⏰","🛒","🚰","👨‍💻","🕌" ]
     let units = ["count", "steps", "km", "mile", "min", "hr", "l", "ml", "g", "mg", "oz", "Cal"]
     let periods: [GoalPeriod] = [.dayLong, .weekLong, .monthLong]
 
