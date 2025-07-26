@@ -6,8 +6,9 @@
 //
 
 import Foundation
-import SwiftUICore
+import SwiftUI
 
+// För Date
 extension Date {
     func isSameDay(as other: Date) -> Bool {
         Calendar.current.isDate(self, inSameDayAs: other)
@@ -28,27 +29,47 @@ extension Date {
     }
 }
 
+// För Double
 extension Double {
     var clean: String {
         self.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", self) : String(self)
     }
 }
 
+// För Goal
 extension Goal {
     var isCompleted: Bool {
         guard let current = currentValue, let goal = goalValue else { return false }
         return current >= goal
     }
+
+    var formattedUnit: String {
+        return valueUnit ?? "enhet"
+    }
+
+    var periodInDays: Int {
+        switch period {
+        case .dayLong:
+            return 1
+        case .weekLong:
+            return 7
+        case .monthLong:
+            return 30
+        case .none:
+            return 0
+        }
+    }
 }
 
+// För View (UI)
 extension View {
     func primaryButtonStyle(backgroundColor: Color) -> some View {
         self
-            .fontWeight(.bold)
-            .padding()
-            .frame(maxWidth: .infinity)
-            .background(backgroundColor)
-            .foregroundColor(.white)
-            .cornerRadius(10)
+          .fontWeight(.bold)
+          .padding()
+          .frame(maxWidth: .infinity)
+          .background(backgroundColor)
+          .foregroundColor(.white)
+          .cornerRadius(10)
     }
 }

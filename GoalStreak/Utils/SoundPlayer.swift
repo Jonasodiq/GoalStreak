@@ -7,8 +7,6 @@
 
 import AVFoundation
 
-import AVFoundation
-
 class SoundPlayer {
     static var audioPlayer: AVAudioPlayer?
     static var isSoundEnabled: Bool = true // Kontrollera om ljudet är aktiverat

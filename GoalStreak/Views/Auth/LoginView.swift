@@ -106,7 +106,6 @@ struct LoginView: View {
         self.error = $0
       }
   }
-
 }
 
 // MARK: - PREVIEW

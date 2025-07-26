@@ -11,11 +11,27 @@
 		DD4C7B472DC0F9E000E59D79 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = DD4C7B462DC0F9E000E59D79 /* FirebaseFirestore */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		DD0BA96F2DD0CD5F00A467F9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DD4C7B282DC0F8EA00E59D79 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DD4C7B2F2DC0F8EA00E59D79;
+			remoteInfo = GoalStreak;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		DD0BA96B2DD0CD5F00A467F9 /* GoalStreakTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoalStreakTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD4C7B302DC0F8EA00E59D79 /* GoalStreak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoalStreak.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		DD0BA96C2DD0CD5F00A467F9 /* GoalStreakTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = GoalStreakTests;
+			sourceTree = "<group>";
+		};
 		DD4C7B322DC0F8EA00E59D79 /* GoalStreak */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = GoalStreak;
@@ -24,6 +40,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		DD0BA9682DD0CD5F00A467F9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DD4C7B2D2DC0F8EA00E59D79 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -40,6 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				DD4C7B322DC0F8EA00E59D79 /* GoalStreak */,
+				DD0BA96C2DD0CD5F00A467F9 /* GoalStreakTests */,
 				DD4C7B312DC0F8EA00E59D79 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -48,6 +72,7 @@
 			isa = PBXGroup;
 			children = (
 				DD4C7B302DC0F8EA00E59D79 /* GoalStreak.app */,
+				DD0BA96B2DD0CD5F00A467F9 /* GoalStreakTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -55,6 +80,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		DD0BA96A2DD0CD5F00A467F9 /* GoalStreakTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DD0BA9712DD0CD5F00A467F9 /* Build configuration list for PBXNativeTarget "GoalStreakTests" */;
+			buildPhases = (
+				DD0BA9672DD0CD5F00A467F9 /* Sources */,
+				DD0BA9682DD0CD5F00A467F9 /* Frameworks */,
+				DD0BA9692DD0CD5F00A467F9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DD0BA9702DD0CD5F00A467F9 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				DD0BA96C2DD0CD5F00A467F9 /* GoalStreakTests */,
+			);
+			name = GoalStreakTests;
+			packageProductDependencies = (
+			);
+			productName = GoalStreakTests;
+			productReference = DD0BA96B2DD0CD5F00A467F9 /* GoalStreakTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		DD4C7B2F2DC0F8EA00E59D79 /* GoalStreak */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DD4C7B3E2DC0F8EB00E59D79 /* Build configuration list for PBXNativeTarget "GoalStreak" */;
@@ -89,6 +137,10 @@
 				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
+					DD0BA96A2DD0CD5F00A467F9 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = DD4C7B2F2DC0F8EA00E59D79;
+					};
 					DD4C7B2F2DC0F8EA00E59D79 = {
 						CreatedOnToolsVersion = 16.2;
 					};
@@ -113,11 +165,19 @@
 			projectRoot = "";
 			targets = (
 				DD4C7B2F2DC0F8EA00E59D79 /* GoalStreak */,
+				DD0BA96A2DD0CD5F00A467F9 /* GoalStreakTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		DD0BA9692DD0CD5F00A467F9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DD4C7B2E2DC0F8EA00E59D79 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -128,6 +188,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		DD0BA9672DD0CD5F00A467F9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DD4C7B2C2DC0F8EA00E59D79 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -137,7 +204,51 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		DD0BA9702DD0CD5F00A467F9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DD4C7B2F2DC0F8EA00E59D79 /* GoalStreak */;
+			targetProxy = DD0BA96F2DD0CD5F00A467F9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		DD0BA9722DD0CD5F00A467F9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RWWZFZD8G2;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jonasni.GoalStreakTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GoalStreak.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/GoalStreak";
+			};
+			name = Debug;
+		};
+		DD0BA9732DD0CD5F00A467F9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RWWZFZD8G2;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jonasni.GoalStreakTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GoalStreak.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/GoalStreak";
+			};
+			name = Release;
+		};
 		DD4C7B3C2DC0F8EB00E59D79 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -320,6 +431,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		DD0BA9712DD0CD5F00A467F9 /* Build configuration list for PBXNativeTarget "GoalStreakTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD0BA9722DD0CD5F00A467F9 /* Debug */,
+				DD0BA9732DD0CD5F00A467F9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		DD4C7B2B2DC0F8EA00E59D79 /* Build configuration list for PBXProject "GoalStreak" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

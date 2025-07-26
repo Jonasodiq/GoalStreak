@@ -81,7 +81,9 @@ class GoalViewModel: ObservableObject {
       let lastDate = goal.lastCompletedDate.map { Calendar.current.startOfDay(for: $0) }
 
       var updatedStreak = goal.streak
-      if lastDate != today {
+//      if lastDate != today {
+    if !(lastDate?.isSameDay(as: today) ?? false) {
+
           if let last = lastDate, Calendar.current.isDate(last.addingTimeInterval(86400), inSameDayAs: today) {
               updatedStreak += 1
           } else {

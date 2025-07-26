@@ -62,6 +62,15 @@ struct GoalFormView: View {
             predefinedColors: Color.predefinedGoalColors,
             selectedColorHex: .constant(selectedColor.toHex() ?? "#2196F3"),
             customColor: $selectedColor
+            
+            /**
+             ✅ Positivt:
+             Flexibel enum Mode för edit/create.
+             Bra validering i isValid.
+             ⚠️ Buggrisk: selectedColorHex sätts men används inte
+             .selectedColorHex: .constant(selectedColor.toHex() ?? "#2196F3"),
+             Detta är en constant, men ska kanske vara bindning? Annars kan användaren inte se uppdaterat hex-värde om hen väljer en färg.
+             */
           )
         }
         // MARK: - Period
