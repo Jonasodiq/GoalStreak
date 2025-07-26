@@ -70,10 +70,25 @@ struct SettingsView: View {
             )
           }
         }
-        .onChange(of: notificationsEnabled) { _, _ in
-          if SoundPlayer.isSoundEnabled {
-            SoundPlayer.play("pop")
-          }
+        .onChange(of: notificationsEnabled) { oldValue, newValue in
+            if SoundPlayer.isSoundEnabled {
+                SoundPlayer.play("pop")
+            }
+
+            if newValue {
+                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
+                    if let error = error {
+                        print("Notification permission error: \(error.localizedDescription)")
+                    } else {
+                        DispatchQueue.main.async {
+                            notificationsEnabled = granted
+                        }
+                    }
+                }
+            } else {
+                // Hantera om användaren stänger av notiser – exempelvis ta bort schemalagda notiser
+                UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+            }
         }
         
         // MARK: - Sound setting
