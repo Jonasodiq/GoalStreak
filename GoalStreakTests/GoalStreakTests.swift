@@ -5,12 +5,17 @@
 //  Created by Jonas Niyazson on 2025-05-11.
 //
 
-import Testing
+import XCTest
+@testable import GoalStreak
 
-struct GoalStreakTests {
+final class GoalStreakTests: XCTestCase {
 
-    @Test func example() async throws {
-        // Write your test here and use APIs like `#expect(...)` to check expected conditions.
+    func testExample() throws {
+        // Arrange
+        let value = 2 + 3
+
+        // Act & Assert
+        XCTAssertEqual(value, 5)
     }
-
 }
+

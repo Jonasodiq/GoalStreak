@@ -192,6 +192,21 @@ struct TimerView: View {
                   showCelebration()
               }
           }
+          
+          /**
+           ❗ Bugg: Ljud spelas varje sekund (!)
+           .onReceive(timer) { _ in
+               if timeRemaining > 0 {
+                   timeRemaining -= 1
+                   SoundPlayer.play("tick") // <-- Spelas varje sekund
+               }
+           }
+           Problem: Det leder till ett ljudspamm.
+           Lösning: Lägg in en användarinställning för att slå av "tick-ljud", eller ta bort det helt.
+           ⚠️ UI-fel: Alert med TextField (inputMinutes)
+           Det går inte att ange ett nytt värde med decimal, även om målet har typ Double.
+           Lösning: Använd .decimalPad och konvertera String -> Double säkrare.
+           */
 
           // Update currentValue for time-based
           if isTimeBasedGoal {
