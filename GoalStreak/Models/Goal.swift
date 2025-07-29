@@ -14,7 +14,7 @@ enum GoalPeriod: String, Codable {
     case monthLong = "Månadsvis"
 }
 
-struct Goal: Identifiable, Codable {
+struct Goal: Identifiable, Codable, Hashable {
     @DocumentID var id: String?
     var name: String
     var description: String?

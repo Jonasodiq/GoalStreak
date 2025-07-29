@@ -33,6 +33,10 @@ struct GoalProgressView: View {
           
           TimerView(goal: goal)
           
+          NavigationLink(destination: CalendarView(goal: goal)) {
+              Label("Visa kalender", systemImage: "calendar")
+          }
+          
         }
         .padding()
         .navigationTitle(goal.name)

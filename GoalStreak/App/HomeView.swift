@@ -17,22 +17,34 @@ struct HomeView: View {
       ZStack {
         TabView(selection: $selectedTab) {
           HomeListView()
-          .tabItem {
-            Image(systemName: "house")
-          }
-          .tag(0)
+            .tabItem {
+              Image(systemName: "house")
+            }
+            .tag(0)
+          
+          StatsView()
+            .tabItem {
+                Image(systemName: "cellularbars")
+            }
+            .tag(1)
           
           GoalFormView(mode: .create, selectedTab: $selectedTab)
-              .tabItem {
-                  EmptyView()
-              }
-              .tag(1)
+            .tabItem {
+                EmptyView()
+            }
+            .tag(2)
+          
+          StatsView()
+            .tabItem {
+                Image(systemName: "chart.pie")
+            }
+            .tag(3)
 
           SettingsView()
             .tabItem {
                 Image(systemName: "gearshape")
             }
-            .tag(2)
+            .tag(4)
         } //: - TabView
         
         VStack {
@@ -41,12 +53,12 @@ struct HomeView: View {
             Spacer()
             Button(action: {
                 SoundPlayer.play("pop")
-                selectedTab = 1
+                selectedTab = 2
             }) {
               Image(systemName: "plus.circle.fill")
                 .resizable()
                 .frame(width: 60, height: 60)
-                .foregroundColor(selectedTab == 1 ? .blue : .gray.opacity(0.5))
+                .foregroundColor(selectedTab == 2 ? .blue : .gray.opacity(0.5))
                 .background(Color.white.clipShape(Circle()))
             }
             .offset(y: -8)
