@@ -13,12 +13,15 @@ struct ColorPickerView: View {
     let predefinedColors: [String: Color]
     @Binding var selectedColorHex: String
     @Binding var customColor: Color
+  
+    // MARK: - Environment
+    @EnvironmentObject var LM: LocalizationManager
 
     // MARK: - BODY
     var body: some View {
       VStack(alignment: .leading, spacing: 12) {
-        Text("Välj färg").font(.headline)
-
+        Text(LM.localizedString(for:"color_section"))
+          .font(.headline)
         HStack(spacing: 8) {
           ForEach(predefinedColors.sorted(by: { $0.key < $1.key }), id: \.key) { hex, color in
             Circle()
@@ -34,8 +37,10 @@ struct ColorPickerView: View {
             }
           }
         }
+        Divider()
+        
         // MARK: - Picker
-        ColorPicker("Anpassad färg", selection: $customColor)
+        ColorPicker(LM.localizedString(for:"custom_color"), selection: $customColor)
           .onChange(of: customColor) {
             SoundPlayer.play("pop")
             selectedColorHex = customColor.toHex() ?? "#007AFF"
@@ -47,13 +52,14 @@ struct ColorPickerView: View {
 
 // MARK: - PREVIEW
 #Preview {
-  @Previewable @State var hex = "#007AFF"
-  @Previewable @State var color = Color.blue
-
+    @Previewable @State var hex = "#007AFF"
+    @Previewable @State var color = Color.blue
+    
     return ColorPickerView(
         predefinedColors: Color.predefinedGoalColors,
         selectedColorHex: $hex,
         customColor: $color
     )
     .background(.gray.opacity(0.2))
+    .environmentObject(LocalizationManager()) // Dummy LocalizationManager
 }

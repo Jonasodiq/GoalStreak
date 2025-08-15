@@ -24,7 +24,7 @@ struct HomeView: View {
           
           StatsView()
             .tabItem {
-                Image(systemName: "cellularbars")
+                Image(systemName: "calendar.badge.checkmark")
             }
             .tag(1)
           
@@ -34,9 +34,9 @@ struct HomeView: View {
             }
             .tag(2)
           
-          StatsView()
+          GroupView()
             .tabItem {
-                Image(systemName: "chart.pie")
+                Image(systemName: "person.3")
             }
             .tag(3)
 

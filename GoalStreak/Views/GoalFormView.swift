@@ -40,13 +40,13 @@ struct GoalFormView: View {
     NavigationView {
       Form {
         // MARK: - Name
-        Section(header: Text(LM.localizedString(for: "name"))) {
+        Section(header: Text(LM.localizedString(for: "name_section"))) {
           TextField(LM.localizedString(for: "text_field"), text: $name)
             .textFieldStyle(.roundedBorder)
         }
         // MARK: - Description
-        Section(header: Text(LM.localizedString(for: "description"))) {
-          TextField(LM.localizedString(for: "description"), text: $description)
+        Section(header: Text(LM.localizedString(for: "desc_section"))) {
+          TextField(LM.localizedString(for: "desc"), text: $description)
             .textFieldStyle(.roundedBorder)
         }
         // MARK: - Emoji
@@ -57,7 +57,7 @@ struct GoalFormView: View {
           )
         }
         // MARK: - Color
-        Section(header: Text("Färg")) {
+        Section(header: Text(LM.localizedString(for: "color_section"))) {
           ColorPickerView(
             predefinedColors: Color.predefinedGoalColors,
             selectedColorHex: .constant(selectedColor.toHex() ?? "#2196F3"),
@@ -74,26 +74,28 @@ struct GoalFormView: View {
           )
         }
         // MARK: - Period
-        Section(header: Text("Period")) {
-          Picker("Period", selection: $selectedPeriod) {
-            ForEach(periods, id: \.self) { period in
-              Text(period.rawValue).tag(period)
+        Section(header: Text(LM.localizedString(for: "Period"))) {
+            Picker(LM.localizedString(for: "Period"), selection: $selectedPeriod) {
+                ForEach(periods, id: \.self) { period in
+                    Text(period.localizedName(using: LM))
+                        .tag(period)
+                }
             }
-          }
-          .pickerStyle(.segmented)
-          .onChange(of: selectedPeriod) { oldValue, newValue in
-            SoundPlayer.play("pop")
-          }
+            .pickerStyle(.segmented)
+            .onChange(of: selectedPeriod) { oldValue, newValue in
+                SoundPlayer.play("pop")
+            }
         }
+
         // MARK: - Value & Unit
-        Section(header: Text("Målvärde & Enhet")) {
+        Section(header: Text(LM.localizedString(for: "unit_section"))) {
           HStack {
-            TextField("Målvärde", text: $goalValue)
+            TextField(LM.localizedString(for: "unit_field"), text: $goalValue)
               .keyboardType(.decimalPad)
               .textFieldStyle(.roundedBorder)
-            Picker("Enhet", selection: $selectedUnit) {
+            Picker(LM.localizedString(for: "unit"), selection: $selectedUnit) {
               ForEach(units, id: \.self) { unit in
-                Text(unit).tag(unit)
+                Text(LM.localizedString(for: unit)).tag(unit)
               }
             }
             .pickerStyle(.menu)
@@ -124,15 +126,15 @@ struct GoalFormView: View {
 
   private var modeTitle: String {
     switch mode {
-      case .create: return LM.localizedString(for: "Lägg till")
-      case .edit: return LM.localizedString(for: "Redigera")
+      case .create: return LM.localizedString(for: "add_title")
+      case .edit: return LM.localizedString(for: "edit_habit")
     }
   }
 
   private var buttonTitle: String {
     switch mode {
-      case .create: return LM.localizedString(for: "Save")
-      case .edit: return LM.localizedString(for: "Spara")
+      case .create: return LM.localizedString(for: "save")
+      case .edit: return LM.localizedString(for: "save")
     }
   }
 

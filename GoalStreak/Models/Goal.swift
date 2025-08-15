@@ -8,10 +8,21 @@
 import Foundation
 import FirebaseFirestore
 
-enum GoalPeriod: String, Codable {
-    case dayLong = "Daglig"
-    case weekLong = "Veckovis"
-    case monthLong = "Månadsvis"
+enum GoalPeriod: String, Codable, CaseIterable {
+    case dayLong
+    case weekLong
+    case monthLong
+    
+    func localizedName(using LM: LocalizationManager) -> String {
+        switch self {
+        case .dayLong:
+            return LM.localizedString(for: "daily")
+        case .weekLong:
+            return LM.localizedString(for: "weekly")
+        case .monthLong:
+            return LM.localizedString(for: "monthly")
+        }
+    }
 }
 
 struct Goal: Identifiable, Codable, Hashable {
@@ -30,3 +41,5 @@ struct Goal: Identifiable, Codable, Hashable {
     var timeRemaining: Int?
     var isRunning: Bool?
 }
+
+
