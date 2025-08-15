@@ -63,8 +63,24 @@
 "habits_title" = "Vanor";
 
 // AddGoalView
-"add_title" = "Lägg till en vana";
-"text_field" = "Ny vana";
-"choose_emoji" = "Välj en emoji";
-"choose_color" = "Välj en färg";
+"edit_habit" = "Redigera";
 "save" = "Spara";
+"add_title" = "Lägg till en vana";
+"name_section" = "Namn";
+"text_field" = "Ny vana";
+"desc_section" = "Beskrivning";
+"desc" = "Kort beskrivning";
+"color_section" = "Färg";
+"custom_color" = "Anpassad färg";
+"daily" = "Daglig";
+"weekly" = "Veckovis";
+"monthly" = "Månadsvis";
+"unit_section" = "Målvärde & Enhet";
+"unit_field" = "Målvärde";
+"unit" = "Enhet";
+"count" = "Antal";
+"steps" = "Steg";
+"hr" = "tim";
+"Cal" = "Kalorier";
+"custom_emoji" = "Eget Emoji";
+

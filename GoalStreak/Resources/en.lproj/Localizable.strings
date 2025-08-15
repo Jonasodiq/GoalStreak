@@ -62,11 +62,23 @@
 "habits_title" = "Habits";
 
 // AddGoalView
-"add_title" = "Add a habit";
-"text_field" = "New habit";
-"choose_emoji" = "Choose an emoji";
-"choose_color" = "Choose a color";
+"edit_habit" = "Edit";
 "save" = "Save";
-
-
-
+"add_title" = "Add a habit";
+"name_section" = "Name";
+"text_field" = "New habit";
+"desc_section" = "Description";
+"desc" = "Short description";
+"color_section" = "Color";
+"custom_color" = "Custom color";
+"daily" = "Daily";
+"weekly" = "Weekly";
+"monthly" = "Monthly";
+"unit_section" = "Value and unit";
+"unit_field" = "Value";
+"unit" = "Unit";
+"count" = "Count";
+"steps" = "Steps";
+"hr" = "Hours";
+"Cal" = "Cal";
+"custom_emoji" = "Custom emoji";
