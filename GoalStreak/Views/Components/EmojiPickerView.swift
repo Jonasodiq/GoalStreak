@@ -39,7 +39,7 @@ struct EmojiPickerView: View {
           
           // Systemets emoji-tangentbord via TextField
           HStack {
-            Text(LM.localizedString(for:"custom_emoji"))
+            Text(LM.LS(for:"custom_emoji"))
             Spacer()
             TextField("😀", text: $selectedEmoji)
                 .font(.largeTitle)

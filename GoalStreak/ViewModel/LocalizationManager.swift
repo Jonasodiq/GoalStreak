@@ -27,7 +27,7 @@ class LocalizationManager: ObservableObject {
 
     // Retrieves a localized string for the specified key based on the selected language
     // Hämtar översatt sträng för en given nyckel
-    func localizedString(for key: String) -> String {
+    func LS(for key: String) -> String {
         if let path = Bundle.main.path(forResource: selectedLanguage, ofType: "lproj"),
            let bundle = Bundle(path: path) {
             return NSLocalizedString(key, tableName: nil, bundle: bundle, comment: "")
@@ -46,4 +46,4 @@ class LocalizationManager: ObservableObject {
             return NSLocalizedString(key, comment: "")
         }
     }
-}
+} 

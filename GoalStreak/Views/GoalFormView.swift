@@ -40,13 +40,13 @@ struct GoalFormView: View {
     NavigationView {
       Form {
         // MARK: - Name
-        Section(header: Text(LM.localizedString(for: "name_section"))) {
-          TextField(LM.localizedString(for: "text_field"), text: $name)
+        Section(header: Text(LM.LS(for: "name_section"))) {
+          TextField(LM.LS(for: "text_field"), text: $name)
             .textFieldStyle(.roundedBorder)
         }
         // MARK: - Description
-        Section(header: Text(LM.localizedString(for: "desc_section"))) {
-          TextField(LM.localizedString(for: "desc"), text: $description)
+        Section(header: Text(LM.LS(for: "desc_section"))) {
+          TextField(LM.LS(for: "desc"), text: $description)
             .textFieldStyle(.roundedBorder)
         }
         // MARK: - Emoji
@@ -57,7 +57,7 @@ struct GoalFormView: View {
           )
         }
         // MARK: - Color
-        Section(header: Text(LM.localizedString(for: "color_section"))) {
+        Section(header: Text(LM.LS(for: "color_section"))) {
           ColorPickerView(
             predefinedColors: Color.predefinedGoalColors,
             selectedColorHex: .constant(selectedColor.toHex() ?? "#2196F3"),
@@ -74,8 +74,8 @@ struct GoalFormView: View {
           )
         }
         // MARK: - Period
-        Section(header: Text(LM.localizedString(for: "Period"))) {
-            Picker(LM.localizedString(for: "Period"), selection: $selectedPeriod) {
+        Section(header: Text(LM.LS(for: "Period"))) {
+            Picker(LM.LS(for: "Period"), selection: $selectedPeriod) {
                 ForEach(periods, id: \.self) { period in
                     Text(period.localizedName(using: LM))
                         .tag(period)
@@ -88,14 +88,14 @@ struct GoalFormView: View {
         }
 
         // MARK: - Value & Unit
-        Section(header: Text(LM.localizedString(for: "unit_section"))) {
+        Section(header: Text(LM.LS(for: "unit_section"))) {
           HStack {
-            TextField(LM.localizedString(for: "unit_field"), text: $goalValue)
+            TextField(LM.LS(for: "unit_field"), text: $goalValue)
               .keyboardType(.decimalPad)
               .textFieldStyle(.roundedBorder)
-            Picker(LM.localizedString(for: "unit"), selection: $selectedUnit) {
+            Picker(LM.LS(for: "unit"), selection: $selectedUnit) {
               ForEach(units, id: \.self) { unit in
-                Text(LM.localizedString(for: unit)).tag(unit)
+                Text(LM.LS(for: unit)).tag(unit)
               }
             }
             .pickerStyle(.menu)
@@ -126,15 +126,15 @@ struct GoalFormView: View {
 
   private var modeTitle: String {
     switch mode {
-      case .create: return LM.localizedString(for: "add_title")
-      case .edit: return LM.localizedString(for: "edit_habit")
+      case .create: return LM.LS(for: "add_title")
+      case .edit: return LM.LS(for: "edit_habit")
     }
   }
 
   private var buttonTitle: String {
     switch mode {
-      case .create: return LM.localizedString(for: "save")
-      case .edit: return LM.localizedString(for: "save")
+      case .create: return LM.LS(for: "save")
+      case .edit: return LM.LS(for: "save")
     }
   }
 

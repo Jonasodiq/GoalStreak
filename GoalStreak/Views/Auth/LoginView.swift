@@ -41,14 +41,14 @@ struct LoginView: View {
         
         // MARK: - Card
         VStack(spacing: 24) {
-          Text(isNewUser ? LM.localizedString(for: "create_account") : LM.localizedString(for: "login"))
+          Text(isNewUser ? LM.LS(for: "create_account") : LM.LS(for: "login"))
             .font(.largeTitle.bold())
             .foregroundColor(.blue)
           
-          TextField(LM.localizedString(for: "email_ph"), text: $email)
+          TextField(LM.LS(for: "email_ph"), text: $email)
             .textFieldStyle(.roundedBorder)
           
-          SecureField(LM.localizedString(for: "password_ph"), text: $password)
+          SecureField(LM.LS(for: "password_ph"), text: $password)
             .textFieldStyle(.roundedBorder)
             .submitLabel(.go)
             .onSubmit {
@@ -60,7 +60,7 @@ struct LoginView: View {
           }
           
           // MARK: - LOGIN BTN
-          Button(isNewUser ? LM.localizedString(for: "account_btn") : LM.localizedString(for: "login_btn")) {
+          Button(isNewUser ? LM.LS(for: "account_btn") : LM.LS(for: "login_btn")) {
               authenticateUser()
             SoundPlayer.play("click")
           }
@@ -68,7 +68,7 @@ struct LoginView: View {
           .bold(true)
           .shadow(color: .black.opacity(0.3), radius: 8, x: 4, y: 8)
           
-          Button(isNewUser ? LM.localizedString(for: "have_account") : LM.localizedString(for: "new_account")) {
+          Button(isNewUser ? LM.LS(for: "have_account") : LM.LS(for: "new_account")) {
             isNewUser.toggle()
             SoundPlayer.play("pop")
           }
@@ -94,10 +94,10 @@ struct LoginView: View {
       .padding(.top, 40)
       .padding(.trailing, 20)
     }//: - ZStack
-    .alert(LM.localizedString(for: "info_title"), isPresented: $showInfo) {
+    .alert(LM.LS(for: "info_title"), isPresented: $showInfo) {
         Button("OK", role: .cancel) {SoundPlayer.play("pop-up") }
     } message: {
-        Text(LM.localizedString(for: "info_message"))
+        Text(LM.LS(for: "info_message"))
     }
   } //: - Body
   
