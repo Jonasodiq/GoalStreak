@@ -17,33 +17,23 @@ struct HomeView: View {
       ZStack {
         TabView(selection: $selectedTab) {
           HomeListView()
-            .tabItem {
-              Image(systemName: "house")
-            }
+            .tabItem {Image(systemName: "house")}
             .tag(0)
           
           StatsView()
-            .tabItem {
-                Image(systemName: "calendar.badge.checkmark")
-            }
+            .tabItem {Image(systemName: "calendar.badge.checkmark")}
             .tag(1)
           
           GoalFormView(mode: .create, selectedTab: $selectedTab)
-            .tabItem {
-                EmptyView()
-            }
+            .tabItem {EmptyView()}
             .tag(2)
           
           GroupView()
-            .tabItem {
-                Image(systemName: "person.3")
-            }
+            .tabItem {Image(systemName: "person.3")}
             .tag(3)
 
           SettingsView()
-            .tabItem {
-                Image(systemName: "gearshape")
-            }
+            .tabItem {Image(systemName: "gearshape")}
             .tag(4)
         } //: - TabView
         
