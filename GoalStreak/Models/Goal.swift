@@ -16,11 +16,11 @@ enum GoalPeriod: String, Codable, CaseIterable {
     func localizedName(using LM: LocalizationManager) -> String {
         switch self {
         case .dayLong:
-            return LM.localizedString(for: "daily")
+            return LM.LS(for: "daily")
         case .weekLong:
-            return LM.localizedString(for: "weekly")
+            return LM.LS(for: "weekly")
         case .monthLong:
-            return LM.localizedString(for: "monthly")
+            return LM.LS(for: "monthly")
         }
     }
 }
@@ -30,16 +30,15 @@ struct Goal: Identifiable, Codable, Hashable {
     var name: String
     var description: String?
     var period: GoalPeriod?
-    var currentValue: Double?
-    var goalValue: Double?
-    var valueUnit: String?
+    var currentValue: Double? //?
+    var goalValue: Double? // ?
+    var valueUnit: String? // Count
     var streak: Int
-    var lastCompletedDate: Date?
+    var lastCompletedDate: Date? // ?
     var emoji: String
     var colorHex: String
     var userId: String
-    var timeRemaining: Int?
-    var isRunning: Bool?
+    var timeRemaining: Int? // ?
+    var isRunning: Bool? // ?
 }
-
 

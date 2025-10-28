@@ -27,9 +27,9 @@ struct SettingsView: View {
 
       func localizedLabel(using manager: LocalizationManager) -> String {
         switch self {
-          case .light:  return manager.localizedString(for: "light_mode")
-          case .dark:   return manager.localizedString(for: "dark_mode")
-          case .system: return manager.localizedString(for: "system_mode")
+          case .light:  return manager.LS(for: "light_mode")
+          case .dark:   return manager.LS(for: "dark_mode")
+          case .system: return manager.LS(for: "system_mode")
         }
       }
     }
@@ -39,13 +39,13 @@ struct SettingsView: View {
     NavigationStack {
       List {
         // MARK: - Account
-        Section(header: Text(LM.localizedString(for: "account_section"))) {
+        Section(header: Text(LM.LS(for: "account_section"))) {
             Button {
               SoundPlayer.play("pop")
               showChangePasswordView = true
             } label: {
                 Label(
-                  title: { Text(LM.localizedString(for: "change_password")) },
+                  title: { Text(LM.LS(for: "change_password")) },
                   icon: { Image(systemName: "key.fill").foregroundColor(.blue) }
                 )
             }
@@ -55,17 +55,17 @@ struct SettingsView: View {
               showDeleteAccountView = true
             } label: {
                 Label(
-                  title: { Text(LM.localizedString(for: "delete_account")) },
+                  title: { Text(LM.LS(for: "delete_account")) },
                   icon: { Image(systemName: "trash.fill").foregroundColor(.red) }
                 )
             }
         }
 
         // MARK: - Notices
-        Section(header: Text(LM.localizedString(for: "notice_section"))) {
+        Section(header: Text(LM.LS(for: "notice_section"))) {
           Toggle(isOn: $notificationsEnabled) {
             Label(
-              title: { Text(LM.localizedString(for: "notice_item")) },
+              title: { Text(LM.LS(for: "notice_item")) },
               icon: { Image(systemName: "bell.badge.fill").foregroundColor(.orange) }
             )
           }
@@ -92,10 +92,10 @@ struct SettingsView: View {
         }
         
         // MARK: - Sound setting
-        Section(header: Text(LM.localizedString(for: "sound_section"))) {
+        Section(header: Text(LM.LS(for: "sound_section"))) {
           Toggle(isOn: $isSoundEnabled) {
             Label(
-              title: { Text(LM.localizedString(for: "sound_item")) },
+              title: { Text(LM.LS(for: "sound_item")) },
               icon: { Image(systemName: "speaker.wave.2.fill").foregroundColor(.blue) }
             )
           }
@@ -108,7 +108,7 @@ struct SettingsView: View {
         // MARK: - Language
         Section(
             header: HStack {
-                Text(LM.localizedString(for: "language_section"))
+                Text(LM.LS(for: "language_section"))
             }
         ) {
             Picker(
@@ -117,11 +117,11 @@ struct SettingsView: View {
                 HStack {
                   Image(systemName: "globe")
                     .foregroundColor(.blue)
-                  Text(LM.localizedString(for: "language_section"))
+                  Text(LM.LS(for: "language_section"))
                 }
             ) {
-                Text(LM.localizedString(for: "swedish")).tag("sv")
-                Text(LM.localizedString(for: "english")).tag("en")
+                Text(LM.LS(for: "swedish")).tag("sv")
+                Text(LM.LS(for: "english")).tag("en")
             }
             .pickerStyle(.inline)
             .onChange(of: selectedLanguage) {
@@ -132,7 +132,7 @@ struct SettingsView: View {
         // MARK: - Appearance
         Section(
             header: HStack {
-              Text(LM.localizedString(for: "appearance_section"))
+              Text(LM.LS(for: "appearance_section"))
             }
         ) {
             Picker(
@@ -141,7 +141,7 @@ struct SettingsView: View {
                 HStack {
                   Image(systemName: "paintpalette.fill")
                     .foregroundColor(.pink)
-                  Text(LM.localizedString(for: "color_theme"))
+                  Text(LM.LS(for: "color_theme"))
                 }
             ) {
               ForEach(AppearanceOption.allCases) { option in
@@ -156,19 +156,19 @@ struct SettingsView: View {
         }
 
         // MARK: - About
-        Section(header: Text(LM.localizedString(for: "about_section")), footer: copyrightFooter) {
-          InfoRowView(icon: "apps.iphone", tint: .indigo, label: LM.localizedString(for: "application"), value: "Goal Streak")
-          InfoRowView(icon: "info.circle", tint: .mint, label: LM.localizedString(for: "compatibility"), value: "iOS, iPadOS")
-          InfoRowView(icon: "swift", tint: .orange, label: LM.localizedString(for: "technology"), value: "Swift")
+        Section(header: Text(LM.LS(for: "about_section")), footer: copyrightFooter) {
+          InfoRowView(icon: "apps.iphone", tint: .indigo, label: LM.LS(for: "application"), value: "Goal Streak")
+          InfoRowView(icon: "info.circle", tint: .mint, label: LM.LS(for: "compatibility"), value: "iOS, iPadOS")
+          InfoRowView(icon: "swift", tint: .orange, label: LM.LS(for: "technology"), value: "Swift")
           InfoRowView(icon: "gear", tint: .purple, label: "Version", value: "1.0")
-          InfoRowView(icon: "ellipsis.curlybraces", tint: .brown, label: LM.localizedString(for: "developer"), value: "Jonas Niyazson")
-          InfoRowView(icon: "globe",tint: .blue,label: LM.localizedString(for: "website_label"),value: "My Portfolio",isLink: true,
+          InfoRowView(icon: "ellipsis.curlybraces", tint: .brown, label: LM.LS(for: "developer"), value: "Jonas Niyazson")
+          InfoRowView(icon: "globe",tint: .blue,label: LM.LS(for: "website_label"),value: "My Portfolio",isLink: true,
               linkDestination: URL(string: "https://my-easy-portfolio.netlify.app/"))
           InfoRowView(icon: "person.text.rectangle",tint: .blue,label: "Linkedin",value: "Jonas Niyazson",isLink: true,
               linkDestination: URL(string: "https://www.linkedin.com/in/jonas-niyazson-4972b11b0/"))
         }
-      }
-      .navigationTitle(LM.localizedString(for: "settings_title"))
+      } //: - List
+      .navigationTitle(LM.LS(for: "settings_title"))
       .toolbar { // Log out
         ToolbarItem(placement: .navigationBarTrailing) {
           Button {
@@ -180,15 +180,15 @@ struct SettingsView: View {
           }
         }
       }
-      .alert(LM.localizedString(for: "logout_title"), isPresented: $showLogoutConfirmation) {
-        Button(LM.localizedString(for: "logout_confirm"), role: .destructive) {
+      .alert(LM.LS(for: "logout_title"), isPresented: $showLogoutConfirmation) {
+        Button(LM.LS(for: "logout_confirm"), role: .destructive) {
           SoundPlayer.play("pop")
           authViewModel.signOut()
           goalViewModel.clearGoals()
         }
-        Button(LM.localizedString(for: "cancel"), role: .cancel) { }
+        Button(LM.LS(for: "cancel"), role: .cancel) { }
       } message: {
-        Text(LM.localizedString(for: "logout_message"))
+        Text(LM.LS(for: "logout_message"))
       }
       .sheet(isPresented: $showChangePasswordView) {
         AccountView(isChangingPassword: true)
@@ -209,7 +209,7 @@ struct SettingsView: View {
   var copyrightFooter: some View {
     HStack {
       Spacer()
-      Text(LM.localizedString(for: "copyright_footer"))
+      Text(LM.LS(for: "copyright_footer"))
         .multilineTextAlignment(.center)
       Spacer()
     }

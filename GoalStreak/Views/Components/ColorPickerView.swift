@@ -20,7 +20,7 @@ struct ColorPickerView: View {
     // MARK: - BODY
     var body: some View {
       VStack(alignment: .leading, spacing: 12) {
-        Text(LM.localizedString(for:"color_section"))
+        Text(LM.LS(for:"color_section"))
           .font(.headline)
         HStack(spacing: 8) {
           ForEach(predefinedColors.sorted(by: { $0.key < $1.key }), id: \.key) { hex, color in
@@ -40,7 +40,7 @@ struct ColorPickerView: View {
         Divider()
         
         // MARK: - Picker
-        ColorPicker(LM.localizedString(for:"custom_color"), selection: $customColor)
+        ColorPicker(LM.LS(for:"custom_color"), selection: $customColor)
           .onChange(of: customColor) {
             SoundPlayer.play("pop")
             selectedColorHex = customColor.toHex() ?? "#007AFF"

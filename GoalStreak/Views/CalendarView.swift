@@ -7,20 +7,17 @@
 
 import SwiftUI
 
-
 struct CalendarDay: Identifiable {
     let id = UUID()
     let date: Date
-    let completedCount: Int
-    let totalCount: Int
+    let completedValue: Double
+    let goalValue: Double
     
-    var isCompleted: Bool {
-        completedCount > 0
-    }
+    var isCompleted: Bool { completedValue >= goalValue }
     
     var progress: Double {
-        guard totalCount > 0 else { return 0 }
-        return Double(completedCount) / Double(totalCount)
+        guard goalValue > 0 else { return 0 }
+        return min(completedValue / goalValue, 1.0)
     }
 }
 
@@ -68,28 +65,37 @@ struct CalendarView: View {
                 ForEach(daysInMonth) { day in
                   let isCurrentMonth = Calendar.current.isDate(day.date, equalTo: currentMonth, toGranularity: .month)
                   let dayNumber = Calendar.current.component(.day, from: day.date)
+                  let isToday = Calendar.current.isDate(day.date, inSameDayAs: Date())
 
                   ZStack {
-                     // Bakgrundscirkel (grå)
-                     Circle()
-                         .stroke(Color.gray.opacity(0.1), lineWidth: 4)
-                     
-                     // Progressring (grön)
-                     if day.progress > 0 {
-                         Circle()
-                             .trim(from: 0, to: min(day.progress, 1.0))
-                             .stroke(Color.green, style: StrokeStyle(lineWidth: 4, lineCap: .round))
-                             .rotationEffect(.degrees(-90))
-                             .animation(.easeInOut, value: day.progress)
-                     }
+                      // Bakgrundscirkel (grå)
+                      Circle()
+                          .stroke(
+                            Color.gray.opacity(0.1), lineWidth: 4
+                          )
 
-                     // Datum eller check
-                     Text("\(dayNumber)")
-                         .font(.caption.bold())
-                         .foregroundColor(isCurrentMonth ? .primary : .gray)
-                 }
+                      // Progressring (grön)
+                    if day.progress > 0 {
+                          Circle()
+                              .trim(from: 0, to: min(day.progress, 1.0))
+                              .stroke(Color.green, style: StrokeStyle(lineWidth: 4, lineCap: .round))
+                              .rotationEffect(.degrees(-90))
+                              .animation(.easeInOut, value: day.progress)
+                      }
+
+                      // Text med eventuell bakgrund
+                      Text("\(dayNumber)")
+                          .font(.caption.bold())
+                          .foregroundColor(isToday ? .white : (isCurrentMonth ? .primary : .gray))
+                          .frame(width: 30, height: 30)
+                          .background(
+                              Circle()
+                                  .foregroundColor(isToday ? Color.blue.opacity(0.7) : .clear)
+                          )
+                  }
                   .frame(width: 36, height: 36)
-                }
+              }
+
             }
             .padding()
         }
@@ -116,19 +122,37 @@ struct CalendarView: View {
     }
 
     // Ladda kalenderdata
-    private func loadCalendarData() {
-        goalViewModel.fetchLogs(for: goal.id ?? "") { logs in
-            let grouped = Dictionary(grouping: logs) { Calendar.current.startOfDay(for: $0.timestamp) }
-            let range = generateDates(for: currentMonth)
-            
-            self.daysInMonth = range.map { date in
-                let count = grouped[Calendar.current.startOfDay(for: date)]?.count ?? 0
-                let total = 1 // eller antal mål för den dagen om du stödjer flera mål
-                return CalendarDay(date: date, completedCount: count, totalCount: total)
-            }
-        }
-    }
+  private func loadCalendarData() {
+      goalViewModel.fetchLogs(for: goal.id ?? "") { logs in
+          let calendar = Calendar.current
 
+          // Gruppera loggar per dag (alla loggar som hör till samma datum)
+          let groupedLogs = Dictionary(grouping: logs) { log in
+              calendar.startOfDay(for: log.timestamp)
+          }
+
+          // Generera alla datum som ska visas i kalendern
+          let allDates = generateDates(for: currentMonth)
+
+          // Mappa till CalendarDay
+          self.daysInMonth = allDates.map { date in
+              let dayKey = calendar.startOfDay(for: date)
+
+              // summera alla loggvärden för dagen
+              let totalCompletedValue = groupedLogs[dayKey]?.reduce(0.0) { sum, log in
+                  sum + log.value
+              } ?? 0.0
+
+              let goalValue = goal.goalValue ?? 1
+
+              return CalendarDay(
+                  date: date,
+                  completedValue: totalCompletedValue,
+                  goalValue: goalValue
+              )
+          }
+      }
+  }
 
     // Genererar datum för hela månaden + veckostart
     private func generateDates(for month: Date) -> [Date] {
