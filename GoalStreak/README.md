@@ -102,10 +102,10 @@ GoalStreak is designed to help users:
 Here are some preview images of GoalStreak in action:
 
 <p float="left">
-  <img src="Screenshots/home.png" width="200" style="margin-right:10px;" />
-  <img src="Screenshots/login.png" width="200" style="margin-right:10px;" />
-  <img src="Screenshots/add-goal.png" width="200" style="margin-right:10px;" />
-    <img src="Screenshots/streak.png" width="200" style="margin-right:10px;" />
+  <img src="Screenshots/login.png" width="200" style="margin-right:16px;" />
+  <img src="Screenshots/home.png" width="200" style="margin-right:16px;" />
+  <img src="Screenshots/add-goal.png" width="200" style="margin-right:16px;" />
+  <img src="Screenshots/streak.png" width="200" style="margin-right:16px;" />
   <img src="Screenshots/settings.png" width="200" />
 </p>
 
