@@ -29,6 +29,8 @@ struct GoalProgressView: View {
           if let description = goal.description {
             Text(description)
               .font(.caption)
+              .multilineTextAlignment(.center)
+              .padding(.horizontal)
           }
           
           TimerView(goal: goal)
