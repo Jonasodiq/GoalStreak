@@ -116,7 +116,7 @@ class AuthViewModel: ObservableObject {
     // MARK: - Logga ut
     func signOut() {
         do {
-            try Auth.auth().signOut()
+            try Auth.auth().signOut() 
             user = nil
         } catch {
             authErrorMessage = "Kunde inte logga ut: \(error.localizedDescription)"
