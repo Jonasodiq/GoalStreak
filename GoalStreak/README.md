@@ -101,15 +101,12 @@ GoalStreak is designed to help users:
 
 Here are some preview images of GoalStreak in action:
 
-### 🏠 Home Screen
-<img src="Screenshots/home.png" width="300">
+<p float="left">
+  <img src="Screenshots/home.png" width="200" style="margin-right:10px;" />
+  <img src="Screenshots/login.png" width="200" style="margin-right:10px;" />
+  <img src="Screenshots/add-goal.png" width="200" style="margin-right:10px;" />
+    <img src="Screenshots/streak.png" width="200" style="margin-right:10px;" />
+  <img src="Screenshots/settings.png" width="200" />
+</p>
 
-### 📊 Statistics
-<img src="Screenshots/stats.png" width="300">
-
-### 🎯 Add Goal
-<img src="Screenshots/add-goal.png" width="300">
-
-### ⚙️ Settings
-<img src="Screenshots/settings.png" width="300">
 
