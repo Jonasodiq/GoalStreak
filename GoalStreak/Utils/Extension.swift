@@ -32,15 +32,17 @@ extension Date {
 // För Double
 extension Double {
     var clean: String {
-        self.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", self) : String(self)
+        truncatingRemainder(dividingBy: 1) == 0
+        ? String(format: "%.0f", self)
+        : String(self)
     }
 }
 
 // För Goal
 extension Goal {
     var isCompleted: Bool {
-        guard let current = currentValue, let goal = goalValue else { return false }
-        return current >= goal
+        guard let current = currentValue, let target = goalValue else { return false }
+        return current >= target
     }
 
     var formattedUnit: String {
@@ -49,14 +51,10 @@ extension Goal {
 
     var periodInDays: Int {
         switch period {
-        case .dayLong:
-            return 1
-        case .weekLong:
-            return 7
-        case .monthLong:
-            return 30
-        case .none:
-            return 0
+        case .dayLong: return 1
+        case .weekLong: return 7
+        case .monthLong: return 30
+        case .none: return 0
         }
     }
 }
