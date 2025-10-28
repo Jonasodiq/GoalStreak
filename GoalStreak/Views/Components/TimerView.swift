@@ -10,23 +10,27 @@ import SwiftUI
 struct TimerView: View {
   
     // MARK: - STATE
-    @State private var timeRemaining: Int
-    @State private var isRunning = false
-    @State private var showTimeInput = false
-    @State private var inputMinutes = ""
-    @State private var totalTime: Int
-    @State private var showCompletionCelebration = false
-    @State private var localGoalValue: Double = 1
-    @State private var localCurrentValue: Double = 0
-
+    @State private var timeRemaining: Int // hur många sekunder som återstår på timern
+    @State private var isRunning = false // om timern är igång eller pausad
+    @State private var showTimeInput = false // styr om en alert ska visas för att ange ny tid/mål
+    @State private var inputMinutes = "" // extfält för att skriva in ny tid eller nytt värde
+    @State private var totalTime: Int // total längd på timern från början
+    @State private var showCompletionCelebration = false // styr om en "🎉 klart!"–banner ska visas.
+    @State private var localGoalValue: Double = 1 // målvärde (t.ex. 10 minuter eller 10 reps)
+    @State private var localCurrentValue: Double = 0 // nuvarande värde (t.ex. 3 reps gjorda)
+    
+    // koppling till din GoalViewModel för att kunna uppdatera mål i appen
     @EnvironmentObject var goalViewModel: GoalViewModel
-    var goal: Goal
+    var goal: Goal // målet som skickas in till vyn (från databasen)
 
-    // Timer
+    // Timer-Skapar en timer som tickar varje sekund och skickar signaler till vyn
     private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     // Initializes TimerView based on target value and time unit
     init(goal: Goal) { self.goal = goal
+      /// Räknar om målets värde (goalValue) till sekunder beroende på enhet (sec, min, hr).
+      /// Exempel: 10 min → 600 sekunder.
+      /// Sätter timeRemaining, totalTime, localGoalValue och localCurrentValue.
 
         var second = 60
         if let value = goal.goalValue,
@@ -52,6 +56,7 @@ struct TimerView: View {
           ZStack {
             Circle() // Gray
               .stroke(Color.gray.opacity(0.3), lineWidth: 10)
+            
             Circle() // Green
               .trim(from: 0, to: progress)
               .stroke(
@@ -294,13 +299,13 @@ struct TimerView: View {
         }
     } //: - Body
 
-  
+  // kollar om målet är tidsbaserat (sek, min, hr)
   private var isTimeBasedGoal: Bool {
       guard let unit = goal.valueUnit?.lowercased() else { return false }
       return ["sec", "min", "hr"].contains(unit)
   }
   
-  // Convert seconds to the correct unit
+  // Convert seconds to the correct unit-översätter sekunder → rätt enhet.
   private var timeUnitMultiplier: Double {
       switch goal.valueUnit?.lowercased() {
       case "sec": return 1      // 1 sek
@@ -310,7 +315,7 @@ struct TimerView: View {
       }
   }
   
-  // Calculates progress as a percentage
+  // Calculates progress as a percentage-hur stor del av målet som är klart (0.0–1.0)
   private var progress: CGFloat {
       if isTimeBasedGoal {
         guard totalTime > 0 else { return 0 } // Avoid division by zero
@@ -320,7 +325,7 @@ struct TimerView: View {
       }
   }
 
-  // Formats seconds to string
+  // Formats seconds to string - formaterar sekunder till MM:SS
   private func timeString(from seconds: Int) -> String {
       let minutes = seconds / 60
       let seconds = seconds % 60
@@ -339,7 +344,7 @@ struct TimerView: View {
       }
   }
 
-  // Checks if the goal is marked as done today
+  // Checks if the goal is marked as done today _ kollar om målet redan markerats som klart idag
   var isMarkedToday: Bool {
       guard let lastDate = goal.lastCompletedDate else { return false }
       return Calendar.current.isDateInToday(lastDate)
@@ -349,6 +354,7 @@ struct TimerView: View {
       "timer_\(goal.id ?? "unknown")"
   }
 
+  // sparar timerns läge i UserDefaults
   private func saveTimerState() {
       let data: [String: Any] = [
           "timeRemaining": timeRemaining,
@@ -357,6 +363,7 @@ struct TimerView: View {
       UserDefaults.standard.set(data, forKey: timerKey)
   }
 
+  // laddar timerns läge i UserDefaults
   private func loadTimerState() {
       guard let saved = UserDefaults.standard.dictionary(forKey: timerKey),
             let savedTime = saved["timeRemaining"] as? Int,
