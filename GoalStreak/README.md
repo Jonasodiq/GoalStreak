@@ -88,7 +88,7 @@ GoalStreak is designed to help users:
 
 ---
 
-## 🧠 Developer Notes
+## Developer Notes
 - Uses MVVM architecture with clear separation of logic and UI.
 - `Goal` model integrates with Firestore using `@DocumentID` and `Codable`.
 - Real-time synchronization ensures live UI updates.
