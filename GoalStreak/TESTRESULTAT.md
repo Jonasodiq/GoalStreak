@@ -5,7 +5,7 @@
 - **Device**: iPhone (simulator), Pixel 2 (simulator), Pixel 7a (fysisk enhet)
 - **OS Version**: 18.3
 - **Tester**: Jonas
-- **Test Date**: 11.02.2026
+- **Test Date**: 11-12.02.2026
 
 ---
 
@@ -17,7 +17,7 @@
 | 2. Redigeringsläge               | 9        | 1          | 0          | 10     |
 | 3. Personlig Information          | 17       | 1          | 0          | 18     |
 | 4. E-post och Telefon            | 22       | 1          | 0          | 23     |
-| 5. Adressinformation             | 14       | 3          | 2          | 19     |
+| 5. Adressinformation             | 18       | 1          | 0          | 19     |
 | 6. Profilbildsuppladdning        | 17       | 1          | 2          | 20     |
 | 7. Formulärvalidering            | 10       | 0          | 2          | 12     |
 | 8. Sparfunktion                  | 12       | 0          | 0          | 12     |
@@ -25,11 +25,11 @@
 | 10. Tangentbordshantering        | 16       | 0          | 0          | 16     |
 | 11. Pull-to-Refresh              | 7        | 0          | 0          | 7      |
 | 12. Layout och Responsivitet     | 12       | 0          | 4          | 16     |
-| **Totalt**                        | **167**  | **13**     | **14**     | **194**|
+| **Totalt**                        | **171**  | **11**     | **12**     | **194**|
 
-- **Godkända**: 167 (86%)
-- **Underkända**: 13 (7%)
-- **Ej testade / Ej verifierade**: 14 (7%)
+- **Godkända**: 171 (88%)
+- **Underkända**: 11 (6%)
+- **Ej testade / Ej verifierade**: 12 (6%)
 
 ---
 
@@ -102,17 +102,7 @@
 - **Förväntat resultat**: Ändrade värden bör finnas kvar i fälten
 - **Faktiskt resultat**: Fälten återställs till originalvärden
 
-### BUG-7: Postnummerfält saknar validering för tomt fält och minst 4 siffror (Test 5.2)
-- **Allvarlighetsgrad**: Medel
-- **Beskrivning**: Postnummerfältet validerar inte tomma fält ("Postnummer är obligatoriskt") eller för korta nummer ("Postnummer måste vara minst 4 siffror").
-- **Steg att reproducera**:
-  1. Öppna redigeringsläge
-  2. Lämna postnummerfältet tomt eller skriv "12"
-  3. Försök spara
-- **Förväntat resultat**: Felmeddelande visas
-- **Faktiskt resultat**: Ingen validering sker
-
-### BUG-8: Land-fältet saknar validering för tomt fält (Test 5.4)
+### BUG-7: Land-fältet saknar validering för tomt fält (Test 5.4)
 - **Allvarlighetsgrad**: Medel
 - **Beskrivning**: Land-fältet visar inget felmeddelande ("Land är obligatoriskt") när det lämnas tomt.
 - **Steg att reproducera**:
@@ -122,7 +112,7 @@
 - **Förväntat resultat**: Felmeddelande "Land är obligatoriskt" visas
 - **Faktiskt resultat**: Ingen validering sker
 
-### BUG-9: Uppladdningsfel vid profilbild — "An unexpected error occurred while uploading image" (Test 6.2, 6.3)
+### BUG-8: Uppladdningsfel vid profilbild — "An unexpected error occurred while uploading image" (Test 6.2, 6.3)
 - **Allvarlighetsgrad**: Medel
 - **Beskrivning**: Vid uppladdning av profilbild (både från kamera och galleri) uppstår ibland felet "An unexpected error occurred while uploading image". Loading-spinner fungerar inte korrekt vid galleriuppladdning.
 - **Steg att reproducera**:
@@ -161,7 +151,7 @@
 
 5. **Förbättra navigering på Kontakta oss-sidan**: Tillbaka-navigering måste fungera konsekvent i alla lägen, och E-post/Telefon-knapparna måste vara funktionella.
 
-6. **Lägg till postnummer- och land-validering**: Implementera saknad obligatorisk validering för postnummer och land-fält.
+6. **Lägg till land-validering**: Implementera saknad obligatorisk validering för land-fältet.
 
 7. **Testa på iPad**: Planera in testning på iPad för att säkerställa korrekt layout och responsivitet på större skärmar.
 
@@ -169,9 +159,9 @@
 
 ## 📝 Övriga kommentarer
 
-- Majoriteten av ProfilePage-funktionaliteten fungerar väl (86% godkänt).
+- Majoriteten av ProfilePage-funktionaliteten fungerar väl (88% godkänt).
 - De mest kritiska buggarna rör kontaktsidans navigering där användaren fastnar och måste starta om appen.
-- Formulärvalidering fungerar generellt bra men saknar validering på postnummer (tomt/för kort) och land (tomt).
+- Formulärvalidering fungerar generellt bra men saknar validering på land (tomt fält).
 - Sparfunktionen (Section 8) fungerar mycket bra med korrekt hantering av nätverksfel, laddningsindikator och framgångsmeddelande.
 - Tangentbordshantering (Section 10) och pull-to-refresh (Section 11) fungerar felfritt.
 - Kontoradering kunde inte helt verifieras på grund av problem med verifieringsmailet.
@@ -179,4 +169,4 @@
 ---
 
 **Signatur Tester**: Jonas  
-**Datum**: 11.02.2026
+**Datum**: 12.02.2026
